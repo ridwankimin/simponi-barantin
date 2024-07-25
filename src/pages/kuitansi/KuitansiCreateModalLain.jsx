@@ -52,7 +52,6 @@ const KuitansiCreateModalLain = ({
       tarif: 0,
     },
   });
-  console.log(errors);
   const [frekuensi, volume, tarif] = watch(["frekuensi", "volume", "tarif"]);
 
   const onSubmit = (values) => {
@@ -65,7 +64,7 @@ const KuitansiCreateModalLain = ({
       setValueLain("frekuensi", 1);
       setValueLain("total_tarif", 1 * tarif * volume);
     }
-  }, [satuans]);
+  }, [satuans, setValueLain]);
   return (
     <Modal className="modal-lg" show={show} onHide={handleClose}>
       <form onSubmit={handleSubmit(onSubmit)}>

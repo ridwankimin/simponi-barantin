@@ -6,6 +6,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { isEmpty } from "lodash";
 import { Container } from "react-bootstrap";
+import { useGetUser } from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 export default function Main() {
   const offsets = ["/apps/file-manager", "/apps/email", "/apps/calendar"];
@@ -54,11 +56,26 @@ export default function Main() {
   const navigate = useNavigate();
   const token = localStorage.getItem("barantinToken");
 
-  useEffect(() => {
+  // useEffect(() => {
     if (isEmpty(token)) {
       navigate("/login");
     }
-  }, [token]);
+  // }, [token]);
+
+  const user = useGetUser()
+
+  const now = (new Date()).toLocaleString('en-CA', { hourCycle: 'h24' }).replace(',', '').slice(0, 16)
+  // const now = "2024-07-24 18:59"
+
+  //2024-07-24T16:20:04+0700
+  const exp = user?.expiry?.replace("T", " ").slice(0, 16)
+
+  if (exp < now) {
+    console.log("abis token")
+    toast.error("Sesi login anda habis, silahkan login ulang")
+    localStorage.clear();
+    navigate("/login");
+  }
 
   return (
     <Fragment>

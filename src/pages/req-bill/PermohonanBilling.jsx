@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Card, Col, Row, Nav, Button, Form } from "react-bootstrap";
+import { Card, Col, Row, Nav, Button, Form, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import SEO from "../../components/SEO";
 import { useDeleteKuitansi, useGetKuitansiList } from "../../hooks/useKuitansi";
@@ -8,18 +8,21 @@ import useDisclosure from "../../hooks/useDisclosure";
 import ReactDatePicker from "react-datepicker";
 import { toRupiah } from "to-rupiah";
 import DataTable from "react-data-table-component";
+import { useGetUser } from "../../hooks/useAuth";
 const PermohonanBilling = () => {
   const navigate = useNavigate();
   //state
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [selectedMenu, setSelectedMenu] = useState("");
-  const [selectedRow, setSelectedRow] = useState(false);
+  let [selectedMenu, setSelectedMenu] = useState("");
+  let [selectedRow, setSelectedRow] = useState(false);
+  let [dataBilling, setDataBilling] = useState(false);
   let [filterText, setFilterText] = useState("");
   let [filteredListData, setFilteredListData] = useState([]);
   const { mutateAsync: deleteKuitansi } = useDeleteKuitansi();
   const handleSelectMenu = (menu) => {
     setSelectedMenu(menu);
   };
+  const user = useGetUser();
   const currentDate = new Date();
   currentDate.setMonth(currentDate.getMonth() - 1);
   const [startDate, setStartDate] = useState(
@@ -38,10 +41,12 @@ const PermohonanBilling = () => {
     dFrom: startDate,
     dTo: finishDate,
     jenis_karantina: selectedMenu,
-    upt_id: "1000"
+    upt_id: user?.upt || "",
+    kode_satpel: "",
+    pengguna_jasa_id: "",
   };
   const { data: response, refetch } = useGetKuitansiList({ params });
-  const { data: listData, total = 0 } = response ?? {};
+  const { data: listData, total = 0 } = response || {};
   //table
   const deleteItem = async (id) => {
     const response = await deleteKuitansi(id);
@@ -72,23 +77,23 @@ const PermohonanBilling = () => {
     // },
     {
       name: "Nomor Kuitansi",
-      cell: (row) => <span className="ff-numerals">{row?.nomor ?? "-"}</span>,
+      cell: (row) => <span className="ff-numerals">{row?.nomor || "-"}</span>,
     },
     {
       name: "Jenis Pembayaran",
       cell: (row) => (
-        <span className="ff-numerals">{row?.tipe_bayar ?? "-"}</span>
+        <span className="ff-numerals">{row?.tipe_bayar || "-"}</span>
       ),
     },
     {
       name: "No Seri",
       cell: (row) => (
-        <span className="ff-numerals">{row?.nomor_seri ?? "-"}</span>
+        <span className="ff-numerals">{row?.nomor_seri || "-"}</span>
       ),
     },
     {
       name: "Tanggal Kuitansi",
-      cell: (row) => <span className="ff-numerals">{row?.tanggal ?? "-"}</span>,
+      cell: (row) => <span className="ff-numerals">{row?.tanggal || "-"}</span>,
     },
     {
       name: "Total PNBP",
@@ -96,20 +101,26 @@ const PermohonanBilling = () => {
         <span className="ff-numerals float-end">{row?.total_pnbp ? toRupiah(parseInt(row?.total_pnbp)) : "-"}</span>
       ),
     },
-    {
-      name: "Status Pembayaran",
-      cell: (row) => (
-        <span className="ff-numerals">{row?.status_bill ?? "-"}</span>
-      ),
-    },
+    // {
+    //   name: "Status Pembayaran",
+    //   cell: (row) => (
+    //     <span className="ff-numerals">{row?.status_bill || "-"}</span>
+    //   ),
+    // },
     {
       name: "Nama Wajib bayar",
       cell: (row) => (
-        <span className="ff-numerals">{row?.nama_wajib_bayar ?? "-"}</span>
+        <span className="ff-numerals">{row?.nama_wajib_bayar || "-"}</span>
+      ),
+    },
+    {
+      name: "NPWP Wajib bayar",
+      cell: (row) => (
+        <span className="ff-numerals">{row?.identitas_id || "-"}</span>
       ),
     },
   ];
-
+  console.log(listData)
   const filterData = (text) => {
     setFilterText(text)
     if (text != "") {
@@ -120,6 +131,7 @@ const PermohonanBilling = () => {
           (item.nomor_seri && item.nomor_seri.toLowerCase().includes(text.toLowerCase())) |
           (item.tanggal && item.tanggal.toLowerCase().includes(text.toLowerCase())) |
           (item.total_pnbp && item.total_pnbp.toLowerCase().includes(text.toLowerCase())) |
+          (item.identitas_id && item.identitas_id.toLowerCase().includes(text.toLowerCase())) |
           (item.status_bill && item.status_bill.toLowerCase().includes(text.toLowerCase())) |
           (item.nama_wajib_bayar && item.nama_wajib_bayar.toLowerCase().includes(text.toLowerCase()))
       );
@@ -211,6 +223,28 @@ const PermohonanBilling = () => {
                   <option value="I" selected={selectedMenu == "I" ? true : false}>Ikan</option>
                   <option value="T" selected={selectedMenu == "T" ? true : false}>Tumbuhan</option>
                 </Form.Select>
+                {dataBilling ?
+                  <Card className="mx-2 mt-4 mb-2 border-danger w-80">
+                    <Table
+                      className="mb-0 no-border p-0 table-cyan"
+                      responsive
+                      variant="info"
+                    >
+                      <tbody>
+                        <tr className="text-black-50 p-0">
+                          <td>Kode Billing</td>
+                          <td>:</td>
+                          <td><b className="me-3">{dataBilling?.data[1] || ""}</b></td>
+                        </tr>
+                        <tr className="text-black-50 p-0">
+                          <td>Tanggal Billing / Expired</td>
+                          <td>:</td>
+                          <td><b>{(dataBilling?.data[2] || "") + " / " + (dataBilling?.data[3] || "")}</b></td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Card>
+                  : ""}
               </div>
             </Card.Header>
             <Card.Body>
@@ -258,7 +292,7 @@ const PermohonanBilling = () => {
           </Card>
         </Col>
       </Row>
-      <LaporPNBPModal isOpen={isOpen} onClose={onClose} data={selectedRow} />
+      <LaporPNBPModal isOpen={isOpen} onClose={onClose} data={selectedRow} setDataBilling={setDataBilling} />
     </>
   );
 };

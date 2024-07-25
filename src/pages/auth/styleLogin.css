@@ -1,0 +1,60 @@
+/* body{ */
+    /* background-image: url("file://./images/your_image"); */
+    /* background-image: url('../logo/bgblur.jpg'); */
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+/* } */
+@font-face /*perintah untuk memanggil font eksternal*/
+{
+  font-family: 'mom'; /*memberikan nama bebas untuk font*/
+  src: url('../../assets/background/captcha/Mom_type.ttf');/*memanggil file font eksternalnya di folder nexa*/
+  /* font-family: 'wood'; 
+  src: url('../assets//background/captcha/font/Woodcutter_Rocks.ttf'); */
+}
+
+.form-bg {
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+}
+
+.image {
+  height: 50px;
+  /* width: 200px; */
+  border-radius: 2px;
+  position: absolute;
+  left: 20px;
+  width: 115px;
+  object-fit: cover;
+}
+
+.image-wrapper{
+  /* vertical-align: top;
+display: inline-block;
+text-align: center; */
+  width: 150px;
+  min-height: 50px;
+  overflow: hidden;
+  position: relative;
+  /* position: absolute; */
+}
+
+.ptext {
+  position: absolute;
+  z-index: 10;
+  /* left: 30px; */
+  /* bottom: 5px; */
+  transform: translate(7%, -8%);
+  color: grey;
+  font-family: 'mom';
+  /* width: 100%; */
+  text-align: center;
+  /* font-weight: 10; */
+  font-size: 1.5rem;
+  /* height: 40%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  

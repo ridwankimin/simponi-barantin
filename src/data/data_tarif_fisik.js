@@ -6627,7 +6627,7 @@ export const dataHewan27 = [
     impor: "",
     ekspor: "",
     domestik: "",
-    "children": [
+    children: [
       {
         id: "402",
         level: "4",
@@ -6641,7 +6641,7 @@ export const dataHewan27 = [
         impor: "",
         ekspor: "",
         domestik: "",
-        "children": [
+        children: [
           {
             id: "403",
             level: "5",
@@ -6655,7 +6655,7 @@ export const dataHewan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "404",
                 level: "6",
@@ -6669,7 +6669,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "405",
                     level: "7",
@@ -6683,7 +6683,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "406",
                         level: "8",
@@ -6727,7 +6727,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "409",
                         level: "8",
@@ -6771,7 +6771,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "412",
                         level: "8",
@@ -6815,7 +6815,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "415",
                         level: "8",
@@ -6829,7 +6829,7 @@ export const dataHewan27 = [
                         impor: "",
                         ekspor: "",
                         domestik: "",
-                        "children": [
+                        children: [
                           {
                             id: "416",
                             level: "9",
@@ -6873,7 +6873,7 @@ export const dataHewan27 = [
                         impor: "",
                         ekspor: "",
                         domestik: "",
-                        "children": [
+                        children: [
                           {
                             id: "419",
                             level: "9",
@@ -6919,7 +6919,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "422",
                         level: "8",
@@ -6965,7 +6965,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "425",
                     level: "7",
@@ -6979,7 +6979,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "426",
                         level: "8",
@@ -7023,7 +7023,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "429",
                         level: "8",
@@ -7069,7 +7069,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "432",
                     level: "7",
@@ -7097,7 +7097,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "434",
                         level: "8",
@@ -7141,7 +7141,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "437",
                         level: "8",
@@ -7185,7 +7185,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "440",
                         level: "8",
@@ -7229,7 +7229,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "443",
                         level: "8",
@@ -7273,7 +7273,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "446",
                         level: "8",
@@ -7317,7 +7317,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "449",
                         level: "8",
@@ -7361,7 +7361,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "452",
                         level: "8",
@@ -7405,7 +7405,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "455",
                         level: "8",
@@ -7463,7 +7463,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "459",
                         level: "8",
@@ -7521,7 +7521,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "463",
                         level: "8",
@@ -7565,7 +7565,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "466",
                         level: "8",
@@ -7613,7 +7613,7 @@ export const dataHewan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "469",
                 level: "6",
@@ -7627,7 +7627,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "470",
                     level: "7",
@@ -7641,7 +7641,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "471",
                         level: "8",
@@ -7685,7 +7685,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "474",
                         level: "8",
@@ -7729,7 +7729,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "477",
                         level: "8",
@@ -7773,7 +7773,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "480",
                         level: "8",
@@ -7817,7 +7817,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "483",
                         level: "8",
@@ -7861,7 +7861,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "486",
                         level: "8",
@@ -7907,7 +7907,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "489",
                     level: "7",
@@ -7921,7 +7921,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "490",
                         level: "8",
@@ -7965,7 +7965,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "493",
                         level: "8",
@@ -8009,7 +8009,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "496",
                         level: "8",
@@ -8053,7 +8053,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "499",
                         level: "8",
@@ -8097,7 +8097,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "502",
                         level: "8",
@@ -8141,7 +8141,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "505",
                         level: "8",
@@ -8185,7 +8185,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "508",
                         level: "8",
@@ -8233,7 +8233,7 @@ export const dataHewan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "511",
                 level: "6",
@@ -8247,7 +8247,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "512",
                     level: "7",
@@ -8261,7 +8261,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "513",
                         level: "8",
@@ -8305,7 +8305,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "516",
                         level: "8",
@@ -8349,7 +8349,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "519",
                         level: "8",
@@ -8393,7 +8393,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "522",
                         level: "8",
@@ -8437,7 +8437,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "525",
                         level: "8",
@@ -8483,7 +8483,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "528",
                     level: "7",
@@ -8497,7 +8497,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "529",
                         level: "8",
@@ -8541,7 +8541,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "532",
                         level: "8",
@@ -8585,7 +8585,7 @@ export const dataHewan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "535",
                         level: "8",
@@ -8633,7 +8633,7 @@ export const dataHewan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "538",
                 level: "6",
@@ -8647,7 +8647,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "539",
                     level: "7",
@@ -8691,7 +8691,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "542",
                     level: "7",
@@ -8735,7 +8735,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "545",
                     level: "7",
@@ -8779,7 +8779,7 @@ export const dataHewan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "548",
                     level: "7",
@@ -8825,7 +8825,7 @@ export const dataHewan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "551",
                 level: "6",
@@ -8903,7 +8903,7 @@ export const dataTumbuhan27 = [
     impor: "",
     ekspor: "",
     domestik: "",
-    "children": [
+    children: [
       {
         id: "705",
         level: "4",
@@ -8917,7 +8917,7 @@ export const dataTumbuhan27 = [
         impor: "",
         ekspor: "",
         domestik: "",
-        "children": [
+        children: [
           {
             id: "706",
             level: "5",
@@ -8931,7 +8931,7 @@ export const dataTumbuhan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "707",
                 level: "6",
@@ -8945,7 +8945,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "708",
                     level: "7",
@@ -8959,7 +8959,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "709",
                         level: "8",
@@ -9003,7 +9003,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "712",
                         level: "8",
@@ -9049,7 +9049,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "715",
                     level: "7",
@@ -9093,7 +9093,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "718",
                     level: "7",
@@ -9137,7 +9137,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "721",
                     level: "7",
@@ -9151,7 +9151,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "722",
                         level: "8",
@@ -9195,7 +9195,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "725",
                         level: "8",
@@ -9239,7 +9239,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "728",
                         level: "8",
@@ -9283,7 +9283,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "731",
                         level: "8",
@@ -9327,7 +9327,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "734",
                         level: "8",
@@ -9371,7 +9371,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "737",
                         level: "8",
@@ -9415,7 +9415,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "740",
                         level: "8",
@@ -9459,7 +9459,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "743",
                         level: "8",
@@ -9503,7 +9503,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "746",
                         level: "8",
@@ -9549,7 +9549,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "749",
                     level: "7",
@@ -9593,7 +9593,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "752",
                     level: "7",
@@ -9639,7 +9639,7 @@ export const dataTumbuhan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "755",
                 level: "6",
@@ -9653,7 +9653,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "756",
                     level: "7",
@@ -9697,7 +9697,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "759",
                     level: "7",
@@ -9741,7 +9741,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "762",
                     level: "7",
@@ -9799,7 +9799,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "766",
                     level: "7",
@@ -9857,7 +9857,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "770",
                     level: "7",
@@ -9917,7 +9917,7 @@ export const dataTumbuhan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "774",
                 level: "6",
@@ -9931,7 +9931,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "775",
                     level: "7",
@@ -9975,7 +9975,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "778",
                     level: "7",
@@ -10019,7 +10019,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "781",
                     level: "7",
@@ -10077,7 +10077,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "785",
                     level: "7",
@@ -10135,7 +10135,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "789",
                     level: "7",
@@ -10193,7 +10193,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "793",
                     level: "7",
@@ -10251,7 +10251,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "797",
                     level: "7",
@@ -10295,7 +10295,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "800",
                     level: "7",
@@ -10339,7 +10339,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "803",
                     level: "7",
@@ -10399,7 +10399,7 @@ export const dataTumbuhan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "807",
                 level: "6",
@@ -10413,7 +10413,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "808",
                     level: "7",
@@ -10471,7 +10471,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "812",
                     level: "7",
@@ -10529,7 +10529,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "816",
                     level: "7",
@@ -10543,7 +10543,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "817",
                         level: "8",
@@ -10601,7 +10601,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "821",
                         level: "8",
@@ -10615,7 +10615,7 @@ export const dataTumbuhan27 = [
                         impor: "",
                         ekspor: "",
                         domestik: "",
-                        "children": [
+                        children: [
                           {
                             id: "822",
                             level: "9",
@@ -10673,7 +10673,7 @@ export const dataTumbuhan27 = [
                         impor: "",
                         ekspor: "",
                         domestik: "",
-                        "children": [
+                        children: [
                           {
                             id: "826",
                             level: "9",
@@ -10733,7 +10733,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "830",
                         level: "8",
@@ -10791,7 +10791,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "834",
                         level: "8",
@@ -10805,7 +10805,7 @@ export const dataTumbuhan27 = [
                         impor: "",
                         ekspor: "",
                         domestik: "",
-                        "children": [
+                        children: [
                           {
                             id: "835",
                             level: "9",
@@ -10863,7 +10863,7 @@ export const dataTumbuhan27 = [
                         impor: "",
                         ekspor: "",
                         domestik: "",
-                        "children": [
+                        children: [
                           {
                             id: "839",
                             level: "9",
@@ -10925,7 +10925,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "843",
                     level: "7",
@@ -10939,7 +10939,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "844",
                         level: "8",
@@ -10997,7 +10997,7 @@ export const dataTumbuhan27 = [
                     impor: "",
                     ekspor: "",
                     domestik: "",
-                    "children": [
+                    children: [
                       {
                         id: "848",
                         level: "8",
@@ -11057,7 +11057,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "852",
                     level: "7",
@@ -11117,7 +11117,7 @@ export const dataTumbuhan27 = [
             impor: "",
             ekspor: "",
             domestik: "",
-            "children": [
+            children: [
               {
                 id: "856",
                 level: "6",
@@ -11173,7 +11173,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "860",
                     level: "7",
@@ -11217,7 +11217,7 @@ export const dataTumbuhan27 = [
                 impor: "",
                 ekspor: "",
                 domestik: "",
-                "children": [
+                children: [
                   {
                     id: "863",
                     level: "7",
@@ -11269,7 +11269,7 @@ export const dataIkan27 = [
     impor: "",
     ekspor: "",
     domestik: "",
-    "children": [
+    children: [
       {
         id: "655",
         level: "4",

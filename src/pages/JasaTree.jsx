@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   dataTarifLainHewan27,
   dataTarifLainTumbuhan27,
+  dataTarifLainIkan27
 } from "../data/data_tarif_lain";
 // import { isEmpty } from "lodash";
 
@@ -77,6 +78,9 @@ const JasaTree = ({
       break;
     case "T":
       karantina = dataTarifLainTumbuhan27;
+      break;
+    case "I":
+      karantina = dataTarifLainIkan27;
       break;
   }
 

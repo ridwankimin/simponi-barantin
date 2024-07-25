@@ -10,9 +10,10 @@ import {
   Row,
 } from "react-bootstrap";
 import { Label } from "reactstrap";
+import { useGetUser } from "../../hooks/useAuth";
 
 const Profile = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useGetUser();
   return (
     <>
       <Container className="pt-5">

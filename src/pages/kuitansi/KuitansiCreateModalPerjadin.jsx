@@ -31,7 +31,6 @@ const KuitansiCreateModalPerjadin = ({ show, handleClose, append }) => {
       volume: 1,
     },
   });
-  console.log(errors);
   const onSubmit = (values) => {
     append({
       no_pemohon: values?.no_pemohon,

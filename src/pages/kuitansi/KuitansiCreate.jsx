@@ -39,9 +39,10 @@ import toast from "react-hot-toast";
 
 const KuitansiCreate = () => {
   //state
-  const [selectedDate, setSelectedDate] = useState();
-  const [selectedPaymentDate, setSelectedPaymentDate] = useState();
-  const [isPerjadin, setIsPerjadin] = useState(false);
+  let [selectedDate, setSelectedDate] = useState("");
+  let [selectedPaymentDate, setSelectedPaymentDate] = useState("");
+  let [dataBilling, setDataBilling] = useState(false);
+  let [isPerjadin, setIsPerjadin] = useState(false);
   const user = useGetUser();
   const { onClose, onOpen, isOpen } = useDisclosure();
   const {
@@ -59,10 +60,10 @@ const KuitansiCreate = () => {
   const { idData } = useParams();
   const id = idData?.split("_")[1]
   const jenisKarantina = idData?.split("_")[0]
-  const { data: response, isSuccess } = useGetSertifikatPelepasDetail(id);
+  const { data: response, isSuccess, refetch } = useGetSertifikatPelepasDetail(id);
   const { data: { ptk = {}, ptk_komoditi = [] } = {} } = response ?? {};
   const { mutateAsync, isPending } = useAddKuitansi();
-  const { mutateAsync: billing, isPendingBill } = useReqBilling();
+  const { mutateAsync: billing, isPending: isPendingBill } = useReqBilling();
   // const { data: increment } = useGetKuitansiIncrement(id);
   let [formOptionsData, setformOptionsData] = useState([]);
   // let [dataDokumenCantolan, setDataDokumenCantolan] = useState({
@@ -85,6 +86,7 @@ const KuitansiCreate = () => {
       nomor_ptk: "",
       ptk_id: "",
       upt_id: "",
+      kode_satpel: "",
       nomor: "",
       tanggal: "",
       nomor_seri: "",
@@ -106,46 +108,7 @@ const KuitansiCreate = () => {
       jenis_karantina: "",
     },
   });
-  // console.log(errors);
-  useEffect(() => {
-    if (isSuccess) {
-      switch (ptk?.jenis_karantina) {
-        case "H":
-          setformOptionsData(formOptionsKH)
-          break;
-        case "I":
-          setformOptionsData(formOptionsKI)
-          break;
-        case "T":
-          setformOptionsData(formOptionsKT)
-          break;
-        default:
-          setformOptionsData([])
-      }
-
-      setValue("ptk_id", ptk?.id);
-      setValue("nomor_ptk", ptk?.no_dok_permohonan);
-      setValue("jenis_karantina", ptk?.jenis_karantina);
-      setValue("mp", (ptk?.jenis_permohonan == "IM" || ptk?.jenis_permohonan == "DM" ? "Pemasukan " : (ptk?.jenis_permohonan == "EX" || ptk?.jenis_permohonan == "DK" ? "Pengeluaran " : "")) + ptk?.jenis_media_pembawa);
-      setValue("upt_id", ptk?.upt_id?.toString());
-      setValue(
-        "nama_wajib_bayar",
-        ptk?.jenis_permohonan == "IM" || ptk?.jenis_permohonan == "DM" ? ptk?.nama_penerima : ptk?.nama_pengirim
-      );
-      setValue(
-        "jenis_identitas",
-        ptk?.jenis_permohonan == "IM" || ptk?.jenis_permohonan == "DM"
-          ? ptk?.jenis_identitas_penerima
-          : ptk?.jenis_identitas_pengirim
-      );
-      setValue(
-        "identitas_id",
-        ptk?.jenis_permohonan == "IM" || ptk?.jenis_permohonan == "DM"
-          ? ptk?.nomor_identitas_penerima
-          : ptk?.nomor_identitas_pengirim
-      );
-    }
-  }, [ptk]);
+  // console.log(errors);;
   const {
     fields: fisikFields,
     append: fisikAppend,
@@ -172,19 +135,19 @@ const KuitansiCreate = () => {
             <input disabled type="text" value={item.kode_tarif} />
           </td> */}
           <td>
-            <input disabled type="text" value={item.kode_simponi} />
+            <input disabled type="text" value={item?.kode_simponi} />
           </td>
           <td>
-            <input disabled type="text" value={item.uraian} />
+            <input disabled type="text" value={item?.uraian} />
           </td>
           <td>
-            <input disabled type="text" value={item.tarif} />
+            <input disabled type="text" value={item?.tarif} />
           </td>
           <td>
             <span
               className="btn btn-danger btn-sm"
               onClick={() => {
-                setValue("total_tarif", total - item.total_tarif);
+                setValue("total_tarif", total - item?.total_tarif);
                 fisikRemove(index);
               }}
             >
@@ -200,22 +163,22 @@ const KuitansiCreate = () => {
       <tr key={index}>
         <td>{index + 1}</td>
         <td>
-          <input disabled type="text" value={item.kode_simponi} />
+          <input disabled type="text" value={item?.kode_simponi} />
         </td>
         {/* <td>
           <input disabled type="text" value={item.kode_simponi} />
         </td> */}
         <td>
-          <input disabled type="text" value={item.uraian} />
+          <input disabled type="text" value={item?.uraian} />
         </td>
         <td>
-          <input disabled type="text" value={item.tarif} />
+          <input disabled type="text" value={item?.tarif} />
         </td>
         <td>
           <span
             className="btn btn-danger btn-sm"
             onClick={() => {
-              setValue("total_tarif", total - item.total_tarif);
+              setValue("total_tarif", total - item?.total_tarif);
               lainRemove(index);
             }}
           >
@@ -230,13 +193,13 @@ const KuitansiCreate = () => {
       <tr key={index}>
         <td>{index + 1}</td>
         <td>
-          <input disabled type="text" value={item.no_pemohon} />
+          <input disabled type="text" value={item?.no_pemohon} />
         </td>
         <td>
-          <input disabled type="text" value={item.no_sppd} />
+          <input disabled type="text" value={item?.no_sppd} />
         </td>
         <td>
-          <input disabled type="text" value={item.keterangan} />
+          <input disabled type="text" value={item?.keterangan} />
         </td>
         <td>
           <span
@@ -253,13 +216,36 @@ const KuitansiCreate = () => {
   const createBilling = async (idKuitansi) => {
     const dataJson = {
       id: [idKuitansi],
-      kode_upt: "10",
+      kode_upt: watch()?.upt_id?.slice(0,2),
+      user: user?.uid,
+      // kode_upt: user?.upt?.slice(0,2),
       // kode_upt: user?.upt?.slice(0, 2),
       jenis_karantina: ptk?.jenis_karantina
     }
     console.log("values bill")
     console.log(dataJson)
+    const toastId = toast.loading('Loading...');
     const response = await billing(dataJson);
+
+    if(response?.status) {
+      toast.dismiss(toastId);
+      toast.success(response?.message || "Berhasil buat billing")
+      setDataBilling(response?.data)
+    } else {
+      toast.dismiss(toastId);
+      let pesan = ""
+      if (typeof response?.message == "string") {
+        pesan = response?.message
+      } else {
+        pesan = response?.message?.code ? (response?.message?.code + " - " + response?.message?.message) : "Gagal buat billing"
+      }
+      toast.error(pesan || "Gagal buat billing", {
+        style: {
+          border: '1px solid black'
+        }
+      })
+      // toast.error(response?.message || (response?.message?.code + " - " + response?.message?.message) || "Gagal buat billing", "Loading...")
+    }
     console.log("response bill")
     console.log(response)
   }
@@ -272,13 +258,15 @@ const KuitansiCreate = () => {
     const response = await mutateAsync(json);
     // console.log("values")
     console.log("response")
-    console.log(json)
-    console.log(json)
+    console.log(response)
     if (response?.status) {
+      toast.success(response?.message)
       // navigate("/");
       setValue("id", response?.data?.id);
       setValue("nomor", response?.data?.nomor);
       setValue("created_at", response?.data?.created_at);
+    } else {
+      toast.error(response?.message)
     }
   }
 
@@ -292,9 +280,13 @@ const KuitansiCreate = () => {
     } else {
       if (!isSuccessDokKarantina) {
         toast.error("Terjadi error saat tarik data!")
+        setValue("nomor_dokumen", "")
+        setValue("tgl_dokumen", "")
       }
       if (responseDokKarantina?.response?.status) {
         toast.error(responseDokKarantina?.response?.statusText)
+        setValue("nomor_dokumen", "")
+        setValue("tgl_dokumen", "")
       }
       if (responseDokKarantina?.status == 200) {
         if (responseDokKarantina?.data?.dokumen_karantina_id == idDok) {
@@ -319,6 +311,45 @@ const KuitansiCreate = () => {
     "total_perjadin",
     "tipe_bayar"
   ]);
+  
+  const setValuePtk = useCallback(() => {
+    setValue("ptk_id", ptk?.id);
+    setValue("nomor_ptk", ptk?.no_dok_permohonan);
+    setValue("status_bayar", "SUDAH");
+    setValue("jenis_karantina", ptk?.jenis_karantina);
+    setValue("mp", ((ptk?.jenis_permohonan == "IM" || ptk?.jenis_permohonan == "DM" ? "Pemasukan " : (ptk?.jenis_permohonan == "EX" || ptk?.jenis_permohonan == "DK" ? "Pengeluaran " : "")) + ptk?.jenis_media_pembawa) || "");
+    setValue("upt_id", ptk?.upt_id?.toString());
+    setValue("kode_satpel", ptk?.kode_satpel?.toString());
+    setValue(
+      "nama_wajib_bayar",
+      (ptk?.jenis_permohonan == "IM" || ptk?.jenis_permohonan == "DM" ? ptk?.nama_penerima : ptk?.nama_pengirim)
+    );
+    setValue(
+      "jenis_identitas",
+      (ptk?.jenis_permohonan == "IM" || ptk?.jenis_permohonan == "DM"
+        ? ptk?.jenis_identitas_penerima
+        : ptk?.jenis_identitas_pengirim)
+    );
+    setValue(
+      "identitas_id",
+      (ptk?.jenis_permohonan == "IM" || ptk?.jenis_permohonan == "DM"
+        ? ptk?.nomor_identitas_penerima
+        : ptk?.nomor_identitas_pengirim)
+    );
+  }, [ptk, setValue])
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (ptk?.jenis_karantina == "H") {
+        setformOptionsData(formOptionsKH)
+      } else if (ptk?.jenis_karantina == "I") {
+        setformOptionsData(formOptionsKI)
+      } else if (ptk?.jenis_karantina == "T") {
+        setformOptionsData(formOptionsKT)
+      }
+    }
+      setValuePtk()
+  }, [setValuePtk])
 
   return (
     <>
@@ -388,18 +419,18 @@ const KuitansiCreate = () => {
               <CardBody className="">
                 <Row md={6}>
                   <Col md={6}>
-                    <Form.Label htmlFor="no_document">No Permohonan</Form.Label>
+                    <Form.Label htmlFor="no_permohonan">No Permohonan</Form.Label>
                     <input
                       className="form-control"
                       disabled
                       type="text"
                       id="no_permohonan"
                       placeholder="No Permohonan"
-                      value={ptk?.no_dok_permohonan}
+                      value={ptk?.no_dok_permohonan || ""}
                     />
                   </Col>
                   <Col md={6}>
-                    <Form.Label htmlFor="no_document">No Kuitansi</Form.Label>
+                    <Form.Label htmlFor="no_kuitansi">No Kuitansi</Form.Label>
                     <input
                       disabled
                       className="form-control"
@@ -433,7 +464,7 @@ const KuitansiCreate = () => {
                       error={!!errors?.tanggal}
                       message={errors?.tanggal?.message}
                     >
-                      <Form.Label htmlFor="payment_date">
+                      <Form.Label htmlFor="tanggal">
                         Tanggal Kuitansi
                       </Form.Label>
                       <Controller
@@ -461,7 +492,7 @@ const KuitansiCreate = () => {
                     </InputWrapper>
                   </Col>
                   <Col md={12} className="mb-1">
-                    <Form.Label className="fw-bold" htmlFor="payment_type">
+                    <Form.Label className="fw-bold" htmlFor="bayar-awal">
                       Jenis Pembayaran
                     </Form.Label>
                     <InputWrapper
@@ -521,7 +552,7 @@ const KuitansiCreate = () => {
                           id="sender_address"
                           name="sender_address"
                           placeholder="Alamat Pengirim"
-                          value={ptk?.alamat_pengirim ?? "-"}
+                          value={ptk?.alamat_pengirim || "-"}
                         />
                       </Col>
                     </Row>
@@ -607,7 +638,7 @@ const KuitansiCreate = () => {
                       className="form-control"
                       value={convertToWords(
                         parseInt(total) + parseInt(total_perjadin)
-                      )}
+                      ) || 0}
                       type="text"
                       id="nominal"
                       placeholder="Nominal"
@@ -666,7 +697,7 @@ const KuitansiCreate = () => {
                                 getDokKarantina(e.value)
                               }
                             }}
-                            value={getReactSelectValue(formOptionsData, value)}
+                            value={getReactSelectValue(formOptionsData, value) || ""}
                           />
                         )}
                       />
@@ -797,7 +828,7 @@ const KuitansiCreate = () => {
                       onChange={() => {
                         setIsPerjadin(!isPerjadin);
                       }}
-                      value={isPerjadin}
+                      value={isPerjadin || ""}
                       id="flexCheckDefault"
                     />
                     <label
@@ -865,7 +896,7 @@ const KuitansiCreate = () => {
                                 type="number"
                                 id="total_perjadin"
                                 placeholder="total_perjadin"
-                                value={value}
+                                value={value || 0}
                                 min={0}
                               />
                             )}
@@ -876,6 +907,28 @@ const KuitansiCreate = () => {
                   </Card>
                 </>
               )}
+              {dataBilling ?
+                <Card className="mx-2 mt-4 mb-2 border-danger w-80">
+                  <Table
+                    className="mb-0 no-border p-0 table-cyan"
+                    responsive
+                    variant="info"
+                  >
+                    <tbody>
+                      <tr className="text-black-50 p-0">
+                        <td>Kode Billing</td>
+                        <td>:</td>
+                        <td><b className="me-3">{dataBilling?.data[1] || ""}</b> <Button href={import.meta.env.VITE_BASE_API + "/print_pdf/billing/" + idKuitansi} target="_blank" variant="dark" size="sm"><i className="ri-printer-line text-white me-2"></i>Cetak Billing</Button></td>
+                      </tr>
+                      <tr className="text-black-50 p-0">
+                        <td>Tanggal Billing / Expired</td>
+                        <td>:</td>
+                        <td><b>{(dataBilling?.data[2] || "") + " / " + (dataBilling?.data[3] || "")}</b></td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Card>
+                : ""}
             </Col>
           </Row>
           <Row className="d-flex justify-content-end mx-2 mb-4">
@@ -883,18 +936,18 @@ const KuitansiCreate = () => {
               className="d-flex justify-content-end"
               style={{ columnGap: "4px" }}
             >
-              <Button type="button" className="btn btn-primary" onClick={() => navigate(-1)}>
-                Kembali
+              <Button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
+                <i className="ri-arrow-left-line me-2"></i>Kembali
               </Button>
               <Button
                 className="btn btn-primary"
                 type="submit"
                 disabled={isPending || idKuitansi ? true : false}
               >
-                Simpan
+                <i className="ri-save-2-fill me-2"></i>{isPending ? "Loading.." : "Simpan"}
               </Button>
-              <Button style={{ display: (idKuitansi ? "block" : "none") }} type="button" className="btn btn-info" onClick={() => toast("Soon..")}>
-                Cetak
+              <Button href={import.meta.env.VITE_BASE_API + "/print_pdf/kuitansi/" + idKuitansi} target="_blank" style={{ display: (idKuitansi ? "block" : "none") }} type="button" className="btn btn-dark">
+                <i className="ri-printer-line text-white me-2"></i>Cetak Kuitansi
               </Button>
               <Button
                 type="button"
@@ -903,7 +956,7 @@ const KuitansiCreate = () => {
                 style={{ backgroundColor: "#07db43", borderColor: "#07db43", display: (idKuitansi ? "block" : "none") }}
                 onClick={() => createBilling(idKuitansi)}
               >
-                Ajukan Billing
+                <i className="ri-send-plane-line me-2"></i>{isPendingBill ? "Loading.." : "Ajukan Billing"}
               </Button>
             </Col>
           </Row>

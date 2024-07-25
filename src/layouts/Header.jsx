@@ -5,8 +5,16 @@ import userAvatar from "../assets/img/img1.jpg";
 import { Col, Image, Row } from "react-bootstrap";
 import { Button } from "reactstrap";
 import { dashboardMenu } from "../data/Menu";
+import { useGetUser } from "../hooks/useAuth";
+import UptGrup from "../assets/json/uptNewGrouping.json"
+import toast from "react-hot-toast";
 
 const Header = (args, { onSkin }) => {
+  function getUptDetil(e) {
+    let retur = UptGrup.filter(item => item.id == e)
+    return retur[0]
+  }
+  const user = useGetUser();
   // eslint-disable-next-line react/display-name
   const CustomToggle = React.forwardRef(function ({ children, onClick }, ref) {
     return (
@@ -75,14 +83,15 @@ const Header = (args, { onSkin }) => {
     }
   };
   const navigate = useNavigate();
+  
   const logout = () => {
     localStorage.clear();
+    toast.success("Berhasil logout")
     navigate("/login");
   };
   const { pathname } = useLocation();
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  console.log(user);
+  console.log(user)
+  
   return (
     <div className="w-100">
       <div className="header-main mx-3 mx-lg-4">
@@ -114,7 +123,7 @@ const Header = (args, { onSkin }) => {
         <div className="vr my-2 m-2"></div>
         <div className="me-auto ">
           <h5>UPT Induk</h5>
-          <h6>Balai Besar Uji Standar Karantina Hewan, Ikan, dan Tumbuhan</h6>
+          <h6>{getUptDetil(user?.upt)?.nama}</h6>
         </div>
         <Dropdown className="dropdown-skin" align="end">
           <Dropdown.Menu className="mt-10-f">
@@ -180,14 +189,15 @@ const Header = (args, { onSkin }) => {
                 <img src={userAvatar} alt="" />
               </div>
               <h5 className="mb-1 text-dark fw-semibold">{user?.name}</h5>
-              <p className="fs-sm text-secondary">{user?.upt ?? "-"}</p>
+              <p className="fs-sm text-secondary mb-0">{user?.nama}</p>
+              <p className="fs-sm text-secondary mb-0">{user?.nip}</p>
+              <hr />
+              <p className="fs-sm text-secondary">{getUptDetil(user?.upt)?.nama?.replace("Balai Karantina Hewan, Ikan, dan Tumbuhan", "BKHIT")?.replace("Balai Besar Karantina Hewan, Ikan, dan Tumbuhan", "BBKHIT") ?? "-"}</p>
 
               <nav className="nav"></nav>
               <hr />
               <nav className="nav">
-                <Link to="/profile">
-                  <i className="ri-user-settings-line"></i> Account Settings
-                </Link>
+                
                 <Button onClick={() => logout()}>
                   <i className="ri-logout-box-r-line"></i> Log Out
                 </Button>

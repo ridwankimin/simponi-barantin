@@ -19,6 +19,8 @@ import useDebounce from "../../hooks/useDebounce";
 import { useGetUser } from "../../hooks/useAuth";
 import DataTable from "react-data-table-component";
 import Loader from "../../components/Loader";
+import { isEmpty } from "lodash";
+import toast from "react-hot-toast";
 
 const Certificate = () => {
   //state
@@ -57,8 +59,9 @@ const Certificate = () => {
     jenis_permohonan: selectedType,
     jenis_karantina: selectedMenu,
     jenis_dokumen: "PTK",
-    upt_id: user?.upt ?? "",
-    kode_satpel: "1000",
+    upt_id: user?.upt || "",
+    kode_satpel: "",
+    pengguna_jasa_id: "",
   };
 
   //persiapan
@@ -77,6 +80,10 @@ const Certificate = () => {
 
   const { data: listData = [] } = response ?? {};
   const navigate = useNavigate();
+
+  const token = localStorage.getItem("barantinToken");
+
+  // useEffect(() => {
 
   //data table
   const [page, setPage] = useState(1);
@@ -116,13 +123,19 @@ const Certificate = () => {
     {
       name: "Pemohon",
       cell: (row) => (
-        <span className="ff-numerals">{row?.nama_pemohon ?? "-"}</span>
+        <span className="ff-numerals">{row?.nama_pemohon + " (" + row?.stat_pemohon?.replace("PPJK", "Dikuasakan") + ")" || "-"}</span>
       ),
     },
     {
       name: "Pengirim",
       cell: (row) => (
         <span className="ff-numerals">{row?.nama_pengirim ?? "-"}</span>
+      ),
+    },
+    {
+      name: "Penerima",
+      cell: (row) => (
+        <span className="ff-numerals">{row?.nama_penerima ?? "-"}</span>
       ),
     },
     {
@@ -295,13 +308,16 @@ const Certificate = () => {
 
   const filterData = (text) => {
     if (text != "") {
+      text = text?.toLowerCase()?.replace("dikuasakan", "ppjk")
       const balikan = listData.filter(
         item =>
           (item.no_aju && item.no_aju.toLowerCase().includes(text.toLowerCase())) |
+          (item.stat_pemohon && item.stat_pemohon.toLowerCase().includes(text.toLowerCase())) |
           (item.jenis_karantina && item.jenis_karantina.toLowerCase().includes(text.toLowerCase())) |
           (item.no_dok_permohonan && item.no_dok_permohonan.toLowerCase().includes(text.toLowerCase())) |
           (item.tgl_dok_permohonan && item.tgl_dok_permohonan.toLowerCase().includes(text.toLowerCase())) |
           (item.status_bayar && item.status_bayar.toLowerCase().includes(text.toLowerCase())) |
+          (item.nama_penerima && item.nama_penerima.toLowerCase().includes(text.toLowerCase())) |
           (item.nama_pemohon && item.nama_pemohon.toLowerCase().includes(text.toLowerCase())) |
           (item.nama_pengirim && item.nama_pengirim.toLowerCase().includes(text.toLowerCase()))
       );
@@ -345,11 +361,16 @@ const Certificate = () => {
   }, []);
 
   useEffect(() => {
+    if (isEmpty(token)) {
+      toast.error("Mohon login terlebih dahulu.")
+      navigate("/login");
+    }
+
     if (listData?.length > 0) {
       setSelectedCertificate(listData[0]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
   return (
     <>
       <SEO title="Sertifikat" />

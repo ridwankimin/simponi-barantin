@@ -6,9 +6,7 @@ export default function Footer() {
       <span>&copy; 2024. Barantin. All Rights Reserved.</span>
       <span>
         Created by:{" "}
-        <Link to="http://barantin.com" target="_blank">
-          Barantin
-        </Link>
+        <strong>Tim IT Barantin</strong>
       </span>
     </div>
   );

@@ -9,16 +9,32 @@ export const useAddKuitansi = () => {
     mutationKey: ["kuitansi"],
     mutationFn: async (json) =>
     json.id ?
-    toast(
-        api.put("/kuitansi", json).then((response) => response.data).catch((err) => err),
-        "Berhasil edit kuitansi",
-        "Loading..."
-      ) :
-    toast(
-        api.post("/kuitansi", json).then((response) => response.data).catch((err) => err),
-        "Berhasil simpan kuitansi",
-        "Loading..."
-      )
+    // toast(
+        api.put("/kuitansi", json)
+        .then((response) => {
+          return response.data
+        })
+        .catch((err) => {
+          return err.response.data
+        })
+        // "Berhasil edit kuitansi",
+        // "Loading..."
+      // )
+       :
+       api.post("/kuitansi", json)
+        .then((response) => {
+          console.log(response)
+          return response.data
+        })
+        .catch((err) => {
+          console.log(err)
+          return err.response?.data
+        })
+    // toast(
+    //     api.post("/kuitansi", json).then((response) => response.data).catch((err) => err),
+    //     "Berhasil simpan kuitansi",
+    //     "Loading..."
+    //   )
   });
 };
 export const useGetKuitansiDetil = (id) => {

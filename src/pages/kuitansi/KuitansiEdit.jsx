@@ -28,6 +28,9 @@ import KuitansiCreateModalFisik from "./KuitansiCreateModalFisik";
 import KuitansiCreateModalLain from "./KuitansiCreateModalLain";
 import KuitansiCreateModalPerjadin from "./KuitansiCreateModalPerjadin";
 import { useGetSertifikatPelepasDetail, useGetSertifikatPelepasanPtk } from "../../hooks/usePelepasan";
+import {
+  useReqBilling,
+} from "../../hooks/useReqBill";
 import { kuitansiCreateValidation } from "../../validations/kuitansiCreate";
 import InputWrapper from "../../components/InputWrapper";
 import { convertToWords, toRupiah } from "to-rupiah";
@@ -71,6 +74,7 @@ const KuitansiEdit = () => {
       user_id: user?.uid ?? "",
       ptk_id: "",
       upt_id: "",
+      kode_satpel: "",
       nomor: "",
       tanggal: "",
       nomor_seri: "",
@@ -93,7 +97,10 @@ const KuitansiEdit = () => {
   });
   console.log(errors);
   const { isPending, mutateAsync } = useAddKuitansi();
-  const { data, isLoading, isSuccess, isFetching } = useGetKuitansiDetil(id);
+  const { mutateAsync: billing, isPending: isPendingBill } = useReqBilling();
+  const { data, isLoading, isSuccess, isFetching, refetch } = useGetKuitansiDetil(id);
+  console.log("data bill")
+  console.log(data)
   const { data: response, isLoading: isPtkLoading } =
     useGetSertifikatPelepasDetail(data?.data?.ptk_id);
   const { data: { ptk = {}, ptk_komoditi = [] } = {} } = response ?? {};
@@ -116,6 +123,7 @@ const KuitansiEdit = () => {
         id: data?.data?.id,
         ptk_id: data?.data?.ptk_id,
         upt_id: data?.data?.upt_id,
+        kode_satpel: data?.data?.kode_satpel,
         nomor: data?.data?.nomor ?? "",
         tanggal: data?.data?.tanggal ?? "",
         nomor_seri: data?.data?.nomor_seri ?? "",
@@ -304,6 +312,56 @@ const KuitansiEdit = () => {
     }
   };
 
+  const createBilling = async (idKuitansi) => {
+    const dataJson = {
+      id: [idKuitansi],
+      kode_upt: user?.upt?.toString()?.slice(0,2),
+      user: user?.uid,
+      // kode_upt: user?.upt?.slice(0, 2),
+      jenis_karantina: ptk?.jenis_karantina
+    }
+    console.log("values bill")
+    console.log(dataJson)
+    const toastId = toast.loading('Loading...', {
+      style: {
+        border: '1px solid black'
+      }
+    });
+    const response = await billing(dataJson);
+    // toast.promise(response, {
+    //   loading: 'Loading..',
+    //   success: response?.message || 'Berhasil buat billing',
+    //   error: response?.message || 'Gagal buat billing',
+    // });
+    if (response?.status) {
+      refetch()
+      toast.dismiss(toastId);
+      // setTimeout(() => {
+      //   window.location.reload()
+      // }, 500)
+      toast.success(response?.message || "Berhasil buat billing", {
+        style: {
+          border: '1px solid black'
+        }
+      })
+    } else {
+      toast.dismiss(toastId);
+      let pesan = ""
+      if(typeof response?.message == "string") {
+        pesan = response?.message
+      } else {
+        pesan = response?.message?.code ? (response?.message?.code + " - " + response?.message?.message) : "Gagal buat billing"
+      }
+      toast.error(pesan || "Gagal buat billing", {
+        style: {
+          border: '1px solid black'
+        }
+      })
+    }
+    console.log("response bill")
+    console.log(response)
+  }
+
   const { data: responseDokKarantina, isSuccess: isSuccessDokKarantina, isError } = useGetSertifikatPelepasanPtk(id, jenisKarantina);
 
   const getDokKarantina = (idDok) => {
@@ -344,6 +402,9 @@ const KuitansiEdit = () => {
     "total_tarif",
     "tipe_bayar"
   ]);
+
+  console.log("watch()")
+  console.log(watch())
   return (
     <>
       <SEO title="Edit Kuitansi" />
@@ -853,6 +914,40 @@ const KuitansiEdit = () => {
                   </Card>
                 </>
               )}
+              {data?.data?.kode_bill ?
+                <Card className="mx-2 mt-4 mb-2 border-danger w-80">
+                  <Table
+                    className="mb-0 no-border p-0 table-cyan"
+                    responsive
+                    variant="info"
+                  >
+                    <tbody>
+                      <tr className="text-black-50 p-0">
+                        <td width="200px">Status Billing</td>
+                        <td>:</td>
+                        <td><b className="me-3">{data?.data?.status_bill || "Belum"}</b> <Button onClick={() => toast.success("Soon...")} variant="info" size="sm"><i className="ri-search-line text-white me-2"></i>Cek Status</Button></td>
+                      </tr>
+                      <tr className="text-black-50 p-0">
+                        <td>Kode Billing</td>
+                        <td>:</td>
+                        <td><b className="me-3">{data?.data?.kode_bill}</b> <Button href={import.meta.env.VITE_BASE_API + "/print_pdf/billing/" + id} target="_blank" variant="dark" size="sm"><i className="ri-printer-line text-white me-2"></i>Cetak Billing</Button></td>
+                      </tr>
+                      <tr className="text-black-50 p-0">
+                        <td>Tanggal Billing / Expired</td>
+                        <td>:</td>
+                        <td><b>{data?.data?.date_bill + " / " + data?.data?.exp_bill}</b></td>
+                      </tr>
+                      {data?.data?.ntpn ?
+                        <tr className="text-black-50 p-0">
+                          <td>NTPN / Tgl Setor</td>
+                          <td>:</td>
+                          <td><b>{data?.data?.nptp + " / " + data?.data?.date_setor}</b></td>
+                        </tr>
+                      : ""}
+                    </tbody>
+                  </Table>
+                </Card>
+              : ""}
             </Col>
           </Row>
           <Row className="d-flex justify-content-end mx-2 mb-4">
@@ -860,21 +955,27 @@ const KuitansiEdit = () => {
               className="d-flex justify-content-end"
               style={{ columnGap: "4px" }}
             >
-              <Button className="btn btn-primary" onClick={() => navigate(-1)}>
-                Kembali
+              <Button className="btn btn-secondary" onClick={() => navigate(-1)}>
+                <i className="ri-arrow-left-line me-2"></i>Kembali
               </Button>
               <Button
                 className="btn btn-primary"
                 type="submit"
                 disabled={isPending ? true : false}
               >
-                Simpan
+                <i className="ri-save-2-fill me-2"></i> {isPending ? "Loading.." : "Simpan"}
+              </Button>
+              <Button href={import.meta.env.VITE_BASE_API + "/print_pdf/kuitansi/" + id} target="_blank" style={{ display: (id ? "block" : "none") }} type="button" className="btn btn-dark">
+                <i className="ri-printer-line text-white me-2"></i>Cetak Kuitansi
               </Button>
               <Button
+                type="button"
                 className="btn"
-                style={{ backgroundColor: "#07db43", borderColor: "#07db43" }}
+                disabled={isPendingBill ? true : false}
+                style={{ backgroundColor: "#07db43", borderColor: "#07db43", display: (id ? "block" : "none") }}
+                onClick={() => createBilling(id)}
               >
-                Ajukan Billing
+                <i className="ri-send-plane-line me-2"></i>{isPendingBill ? "Loading.." : "Ajukan Billing"}
               </Button>
             </Col>
           </Row>

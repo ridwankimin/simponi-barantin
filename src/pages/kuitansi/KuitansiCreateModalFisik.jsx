@@ -60,7 +60,7 @@ const KuitansiCreateModalFisik = ({
       ptk_komoditas_id: "",
       tarif_id: "",
       uraian: "",
-      volume: 0,
+      volume: 1,
       frekuensi: 1,
       satuan_volume: "",
       total_tarif: 0,
@@ -81,7 +81,6 @@ const KuitansiCreateModalFisik = ({
     setValue("jumlah_mp", jumlahMp + " " + values.volume + " " + values.uraian + ";");
     handleClose();
   };
-  console.log(errors);
   return (
     <Modal className="modal-lg" show={show} onHide={handleClose}>
       <form onSubmit={handleSubmit(onSubmit)}>

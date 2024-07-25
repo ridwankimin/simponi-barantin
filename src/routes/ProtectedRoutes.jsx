@@ -9,7 +9,7 @@ import PermohonanBilling from "../pages/req-bill/PermohonanBilling";
 import QuarantineTree from "../pages/QuarantineTree";
 import UserCreate from "../pages/UserCreate";
 import UserManager from "../pages/UserManager";
-import Profile from "../pages/auth/Profile";
+// import Profile from "../pages/auth/Profile";
 import Certificate from "../pages/certificate/Certificate";
 import KuitansiCreate from "../pages/kuitansi/KuitansiCreate";
 import KuitansiEdit from "../pages/kuitansi/KuitansiEdit";
@@ -28,8 +28,8 @@ const protectedRoutes = [
   { path: "user-manager", element: <UserManager /> },
   { path: "user-manager/create", element: <UserCreate /> },
   { path: "tree", element: <QuarantineTree /> },
-  { path: "kuitansi", element: <PaymentDocument /> },
-  { path: "profile", element: <Profile /> },
+  { path: "status", element: <PaymentDocument /> },
+  // { path: "profile", element: <Profile /> },
 ];
 
 export default protectedRoutes;

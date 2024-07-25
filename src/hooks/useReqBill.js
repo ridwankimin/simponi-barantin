@@ -29,10 +29,38 @@ export const useReqBilling = () => {
   return useMutation({
     mutationKey: ["reqbill"],
     mutationFn: async (json) =>
-    toast(
-        api.post("/reqbill", json).then((response) => response.data).catch((err) => err),
-        "Berhasil create billing",
-        "Loading..."
-      )
+    // toast(
+        api.post("/reqbill", json)
+        .then((response) => {
+          return response.data
+        })
+        .catch((err) => {
+          return err.response?.data
+        }),
+        // "Berhasil create billing",
+      //   "Loading..."
+      // )
+  });
+};
+export const useCekBilling = () => {
+  return useMutation({
+    mutationKey: ["cekbill"],
+    mutationFn: async (json) =>
+      api.post("/reqbill/statusdja", json)
+      .then((response) => {
+        return response.data
+      })
+      .catch((err) => {
+        return err.response?.data
+      }),
+  });
+};
+export const useGetBillList = ({ params }) => {
+  return useQuery({
+    queryKey: ["reqbill-status", Object.values(params)],
+    queryFn: () =>
+      api.post("/reqbill/status", params).then((res) => res.data).catch((err) => console.log(err)),
+    enabled: !isEmpty(params),
+    keepPreviousData: false,
   });
 };

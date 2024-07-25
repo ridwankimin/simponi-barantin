@@ -1,6 +1,6 @@
 import { Tree } from "react-arborist";
 import { useState } from "react";
-import { dataHewan27, dataIkan27 ,dataTumbuhan27 } from "../data/data_tarif_fisik";
+import { dataHewan27, dataIkan27, dataTumbuhan27 } from "../data/data_tarif_fisik";
 
 const Node = ({ node, style, dragHandle }) => {
   const [isHover, setIsHover] = useState(false);
@@ -56,7 +56,6 @@ const QuarantineTree = ({
     case "TR":
       permohonan = "Transit";
       break;
-
     case "RE":
       permohonan = "Reekspor";
       break;
@@ -66,6 +65,7 @@ const QuarantineTree = ({
     default:
       permohonan = "Serah Terima";
   }
+  
   switch (jenisKarantina) {
     case "H":
       karantina = dataHewan27;
@@ -76,6 +76,8 @@ const QuarantineTree = ({
     case "T":
       karantina = dataTumbuhan27;
       break;
+    default:
+      karantina = [];
     //persiapan tarif ikan
   }
   return (
@@ -91,16 +93,27 @@ const QuarantineTree = ({
             setValue("satuan_volume", node[0]?.data?.satuan);
             setValue("uraian", node[0]?.data?.name);
             setValue("tarif", node[0]?.data?.jml_tarif);
-            setValue("total_tarif", (jenisKarantina == "I" ? node[0]?.data?.jml_tarif : node[0]?.data?.jml_tarif * volume));
+            setValue("total_tarif", (jenisKarantina == "I" ? node[0]?.data?.jml_tarif : (node[0]?.data?.jml_tarif * volume)));
           }
         }}
         searchTerm={permohonan}
-        // searchMatch={(node, term) =>
-        //   node?.isLeaf &&
-        //   (node?.data?.jenis_permohonan)
-        //     ?.toLowerCase()
-        //     ?.includes(term?.toLowerCase())
-        // }
+        // searchMatch={(node, term) => {
+        //   // const words = term?.split("%");
+        //   return (
+        //     node?.isLeaf
+        //     // node?.data?.jenis_permohonan
+        //     // ?.toLowerCase()
+        //     // ?.includes(words[0]?.toLowerCase())
+        //   );
+        // }}
+     
+        searchMatch={(node, term) =>
+          node?.isLeaf 
+          // &&
+          // (node?.data?.jenis_permohonan)
+          //   ?.toLowerCase()
+          //   ?.includes(term?.toLowerCase())
+        }
         initialData={karantina}
         disableDrag
         disableDrop
