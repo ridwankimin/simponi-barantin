@@ -14,11 +14,11 @@ const dashboardMenu = [
     link: "/kuitansi",
     icon: "ri-shopping-bag-3-line",
   },
-  {
-    label: "Laporan",
-    link: "/payment",
-    icon: "ri-shopping-bag-3-line",
-  },
+  // {
+  //   label: "Laporan",
+  //   link: "/payment",
+  //   icon: "ri-shopping-bag-3-line",
+  // },
 ];
 
 const applicationsMenu = [

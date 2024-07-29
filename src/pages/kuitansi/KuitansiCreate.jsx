@@ -70,6 +70,7 @@ const KuitansiCreate = () => {
   //   nomor: "",
   //   tanggal: ""
   // });
+  console.log(ptk)
   const {
     control,
     register,
@@ -83,6 +84,7 @@ const KuitansiCreate = () => {
       created_at: "",
       id: "",
       user_id: user?.uid ?? "",
+      tgl_aju: "",
       nomor_ptk: "",
       ptk_id: "",
       upt_id: "",
@@ -314,6 +316,7 @@ const KuitansiCreate = () => {
   
   const setValuePtk = useCallback(() => {
     setValue("ptk_id", ptk?.id);
+    setValue("tgl_aju", ptk?.tgl_aju);
     setValue("nomor_ptk", ptk?.no_dok_permohonan);
     setValue("status_bayar", "SUDAH");
     setValue("jenis_karantina", ptk?.jenis_karantina);
@@ -372,6 +375,7 @@ const KuitansiCreate = () => {
         <input type="hidden" name="id" {...register("id")} />
         <input type="hidden" name="user_id" {...register("user_id")} />
         <input type="hidden" name="nomor_ptk" {...register("nomor_ptk")} />
+        <input type="hidden" name="tgl_aju" {...register("tgl_aju")} />
         <Card className="card-one">
           <Row className="mb-2">
             {/* <Col md={12} sm={12}>

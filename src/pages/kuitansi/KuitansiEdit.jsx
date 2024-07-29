@@ -142,6 +142,7 @@ const KuitansiEdit = () => {
         total_perjadin: data?.data?.total_perjadin ?? 0,
         created_at: data?.data?.created_at ?? "",
         nomor_ptk: ptk?.no_dok_permohonan ?? "",
+        tgl_aju: ptk?.tgl_aju ?? "",
         user_id: data?.data?.user_id ?? "",
         jasa_fisik:
           data?.data?.jasa_fisik?.length > 0 ? data?.data?.jasa_fisik : [],
@@ -925,7 +926,7 @@ const KuitansiEdit = () => {
                       <tr className="text-black-50 p-0">
                         <td width="200px">Status Billing</td>
                         <td>:</td>
-                        <td><b className="me-3">{data?.data?.status_bill || "Belum"}</b> <Button onClick={() => toast.success("Soon...")} variant="info" size="sm"><i className="ri-search-line text-white me-2"></i>Cek Status</Button></td>
+                        <td><b className="me-3">{data?.data?.status_bill || "Belum"}</b></td>
                       </tr>
                       <tr className="text-black-50 p-0">
                         <td>Kode Billing</td>
