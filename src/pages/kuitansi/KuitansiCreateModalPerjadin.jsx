@@ -40,6 +40,7 @@ const KuitansiCreateModalPerjadin = ({ show, handleClose, append }) => {
       kode_pp: "2024027",
       kode_akun: dataPerjadin27.kd_akun,
       kode_tarif: dataPerjadin27.kd_tarif,
+      uraian: dataPerjadin27.name,
       satuan_volume: dataPerjadin27.satuan,
       tarif: dataPerjadin27.jml_tarif,
       tarif_id: dataPerjadin27.id,

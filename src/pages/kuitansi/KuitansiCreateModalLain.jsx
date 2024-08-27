@@ -62,7 +62,7 @@ const KuitansiCreateModalLain = ({
   useEffect(() => {
     if (!satuans[3]) {
       setValueLain("frekuensi", 1);
-      setValueLain("total_tarif", 1 * tarif * volume);
+      setValueLain("total_tarif", 1 * parseFloat(tarif) * parseFloat(volume));
     }
   }, [satuans, setValueLain]);
   return (
@@ -144,7 +144,7 @@ const KuitansiCreateModalLain = ({
                   setValueLain("volume", e.target.value);
                   setValueLain(
                     "total_tarif",
-                    e.target.value * frekuensi * tarif
+                    parseFloat(e.target.value) * parseFloat(frekuensi) * parseFloat(tarif)
                   );
                 }}
               />
@@ -170,7 +170,7 @@ const KuitansiCreateModalLain = ({
                       setValueLain("frekuensi", e.target.value);
                       setValueLain(
                         "total_tarif",
-                        e.target.value * tarif * volume
+                        parseFloat(e.target.value) * parseFloat(tarif) * parseFloat(volume)
                       );
                     }}
                   />

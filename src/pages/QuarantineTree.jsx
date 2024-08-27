@@ -38,6 +38,8 @@ const QuarantineTree = ({
   jenisKarantina,
   setValue,
   volume,
+  konversiTarif,
+  selectedPtk,
 }) => {
   let permohonan, karantina;
   switch (jenisPermohonan) {
@@ -91,29 +93,32 @@ const QuarantineTree = ({
             setValue("kode_akun", node[0]?.data?.kd_akun);
             setValue("kode_simponi", node[0]?.data?.kd_tarif);
             setValue("satuan_volume", node[0]?.data?.satuan);
+            setValue("volume", konversiTarif(node[0]?.data?.satuan, selectedPtk?.data?.satuan_lain_id, selectedPtk?.data?.volume_lain));
             setValue("uraian", node[0]?.data?.name);
             setValue("tarif", node[0]?.data?.jml_tarif);
-            setValue("total_tarif", (jenisKarantina == "I" ? node[0]?.data?.jml_tarif : (node[0]?.data?.jml_tarif * volume)));
+            setValue("total_tarif", (jenisKarantina == "I" ? node[0]?.data?.jml_tarif : (parseFloat(node[0]?.data?.jml_tarif) * parseFloat(volume))));
           }
         }}
         searchTerm={permohonan}
-        // searchMatch={(node, term) => {
-        //   // const words = term?.split("%");
-        //   return (
-        //     node?.isLeaf
-        //     // node?.data?.jenis_permohonan
-        //     // ?.toLowerCase()
-        //     // ?.includes(words[0]?.toLowerCase())
-        //   );
-        // }}
+        searchMatch={(node, permohonan) => {
+          const words = permohonan?.split("%");
+          console
+          return (
+            node?.isLeaf
+            // &&
+            // node?.data?.jenis_permohonan
+            // ?.toLowerCase()
+            // ?.includes(words[0]?.toLowerCase())
+          );
+        }}
      
-        searchMatch={(node, term) =>
-          node?.isLeaf 
-          // &&
-          // (node?.data?.jenis_permohonan)
-          //   ?.toLowerCase()
-          //   ?.includes(term?.toLowerCase())
-        }
+        // searchMatch={(node, term) =>
+        //   node?.isLeaf 
+        //   // &&
+        //   // (node?.data?.jenis_permohonan)
+        //   //   ?.toLowerCase()
+        //   //   ?.includes(term?.toLowerCase())
+        // }
         initialData={karantina}
         disableDrag
         disableDrop

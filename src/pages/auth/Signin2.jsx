@@ -96,7 +96,7 @@ const Signin2 = () => {
         navigate("/");
       } else {
         toast.dismiss(toastId)
-        toast.error(response?.status + " - " + response.message + (response.message == "Password anda salah !" ? "" : "/User tidak ditemukan"))
+        toast.error(response?.status + " - " + response?.message + (response?.message == "Password anda salah !" ? "" : "/User tidak ditemukan"))
         textToImage()
       }
     } else {

@@ -72,6 +72,8 @@ const KuitansiEdit = () => {
       id: "",
       created_at: "",
       user_id: user?.uid ?? "",
+      nama_bendahara: user?.nama ?? "",
+      nip_bendahara: user?.nip ?? "",
       ptk_id: "",
       upt_id: "",
       kode_satpel: "",
@@ -318,6 +320,7 @@ const KuitansiEdit = () => {
       id: [idKuitansi],
       kode_upt: user?.upt?.toString()?.slice(0,2),
       user: user?.uid,
+      jenis: 'pemilik',
       // kode_upt: user?.upt?.slice(0, 2),
       jenis_karantina: ptk?.jenis_karantina
     }
@@ -426,6 +429,8 @@ const KuitansiEdit = () => {
         <input type="hidden" name="created_at" {...register("created_at")} />
         <input type="hidden" name="id" {...register("id")} />
         <input type="hidden" name="user_id" {...register("user_id")} />
+        <input type="hidden" name="nama_bendahara" {...register("nama_bendahara")} />
+        <input type="hidden" name="nip_bendahara" {...register("nip_bendahara")} />
         <input type="hidden" name="nomor_ptk" {...register("nomor_ptk")} />
         <Card className="card-one">
           <Row>
@@ -931,7 +936,7 @@ const KuitansiEdit = () => {
                       <tr className="text-black-50 p-0">
                         <td>Kode Billing</td>
                         <td>:</td>
-                        <td><b className="me-3">{data?.data?.kode_bill}</b> <Button href={import.meta.env.VITE_BASE_API + "/print_pdf/billing/" + id} target="_blank" variant="dark" size="sm"><i className="ri-printer-line text-white me-2"></i>Cetak Billing</Button></td>
+                        <td><b className="me-3">{data?.data?.kode_bill}</b> <Button href={import.meta.env.VITE_BASE_BE_PRINT + "/payment/billing/" + data?.data?.req_bill_id} target="_blank" variant="dark" size="sm"><i className="ri-printer-line text-white me-2"></i>Cetak Billing</Button></td>
                       </tr>
                       <tr className="text-black-50 p-0">
                         <td>Tanggal Billing / Expired</td>
@@ -966,7 +971,7 @@ const KuitansiEdit = () => {
               >
                 <i className="ri-save-2-fill me-2"></i> {isPending ? "Loading.." : "Simpan"}
               </Button>
-              <Button href={import.meta.env.VITE_BASE_API + "/print_pdf/kuitansi/" + id} target="_blank" style={{ display: (id ? "block" : "none") }} type="button" className="btn btn-dark">
+              <Button href={import.meta.env.VITE_BASE_BE_PRINT + "/payment/kuitansi/" + id} target="_blank" style={{ display: (id ? "block" : "none") }} type="button" className="btn btn-dark">
                 <i className="ri-printer-line text-white me-2"></i>Cetak Kuitansi
               </Button>
               <Button

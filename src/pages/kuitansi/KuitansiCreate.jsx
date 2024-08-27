@@ -84,6 +84,8 @@ const KuitansiCreate = () => {
       created_at: "",
       id: "",
       user_id: user?.uid ?? "",
+      nama_bendahara: user?.nama ?? "",
+      nip_bendahara: user?.nip ?? "",
       tgl_aju: "",
       nomor_ptk: "",
       ptk_id: "",
@@ -220,6 +222,7 @@ const KuitansiCreate = () => {
       id: [idKuitansi],
       kode_upt: watch()?.upt_id?.slice(0,2),
       user: user?.uid,
+      jenis: 'pemilik',
       // kode_upt: user?.upt?.slice(0,2),
       // kode_upt: user?.upt?.slice(0, 2),
       jenis_karantina: ptk?.jenis_karantina
@@ -230,6 +233,7 @@ const KuitansiCreate = () => {
     const response = await billing(dataJson);
 
     if(response?.status) {
+      console.log(response)
       toast.dismiss(toastId);
       toast.success(response?.message || "Berhasil buat billing")
       setDataBilling(response?.data)
@@ -257,17 +261,20 @@ const KuitansiCreate = () => {
       ...values,
       total_pnbp: values.total_tarif + values.total_perjadin,
     };
+    console.log("response")
+    console.log(JSON.stringify(json))
+    const toastId = toast.loading('Loading...');
     const response = await mutateAsync(json);
     // console.log("values")
-    console.log("response")
-    console.log(response)
     if (response?.status) {
+      toast.dismiss(toastId);
       toast.success(response?.message)
       // navigate("/");
       setValue("id", response?.data?.id);
       setValue("nomor", response?.data?.nomor);
       setValue("created_at", response?.data?.created_at);
     } else {
+      toast.dismiss(toastId);
       toast.error(response?.message)
     }
   }
@@ -374,6 +381,8 @@ const KuitansiCreate = () => {
         <input type="hidden" name="created_at" {...register("created_at")} />
         <input type="hidden" name="id" {...register("id")} />
         <input type="hidden" name="user_id" {...register("user_id")} />
+        <input type="hidden" name="nama_bendahara" {...register("nama_bendahara")} />
+        <input type="hidden" name="nip_bendahara" {...register("nip_bendahara")} />
         <input type="hidden" name="nomor_ptk" {...register("nomor_ptk")} />
         <input type="hidden" name="tgl_aju" {...register("tgl_aju")} />
         <Card className="card-one">
@@ -922,12 +931,12 @@ const KuitansiCreate = () => {
                       <tr className="text-black-50 p-0">
                         <td>Kode Billing</td>
                         <td>:</td>
-                        <td><b className="me-3">{dataBilling?.data[1] || ""}</b> <Button href={import.meta.env.VITE_BASE_API + "/print_pdf/billing/" + idKuitansi} target="_blank" variant="dark" size="sm"><i className="ri-printer-line text-white me-2"></i>Cetak Billing</Button></td>
+                        <td><b className="me-3">{dataBilling?.kode_bill || ""}</b> <Button href={import.meta.env.VITE_BASE_BE_PRINT + "/payment/billing/" + dataBilling?.id} target="_blank" variant="dark" size="sm"><i className="ri-printer-line text-white me-2"></i>Cetak Billing</Button></td>
                       </tr>
                       <tr className="text-black-50 p-0">
                         <td>Tanggal Billing / Expired</td>
                         <td>:</td>
-                        <td><b>{(dataBilling?.data[2] || "") + " / " + (dataBilling?.data[3] || "")}</b></td>
+                        <td><b>{(dataBilling?.date_bill || "") + " / " + (dataBilling?.exp_bill || "")}</b></td>
                       </tr>
                     </tbody>
                   </Table>
@@ -950,7 +959,7 @@ const KuitansiCreate = () => {
               >
                 <i className="ri-save-2-fill me-2"></i>{isPending ? "Loading.." : "Simpan"}
               </Button>
-              <Button href={import.meta.env.VITE_BASE_API + "/print_pdf/kuitansi/" + idKuitansi} target="_blank" style={{ display: (idKuitansi ? "block" : "none") }} type="button" className="btn btn-dark">
+              <Button href={import.meta.env.VITE_BASE_BE_PRINT + "/payment/kuitansi/" + idKuitansi} target="_blank" style={{ display: (idKuitansi ? "block" : "none") }} type="button" className="btn btn-dark">
                 <i className="ri-printer-line text-white me-2"></i>Cetak Kuitansi
               </Button>
               <Button

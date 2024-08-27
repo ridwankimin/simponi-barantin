@@ -13,8 +13,8 @@ export const kuitansiCreateValidation = (isEdit = false) => {
     jenis_identitas: Yup.string().required("Field harus diisi"),
     identitas_id: Yup.string().required("Field harus diisi"),
     tipe_bayar: Yup.string().required("Pilih salah satu"),
-    mp: Yup.string().required("Pilih minimal 1 jasa fisik"),
-    jumlah_mp: Yup.string().required("Pilih minimal 1 jasa fisik"),
+    mp: Yup.string(),
+    jumlah_mp: Yup.string(),
     sesuai_dok: Yup.string().required("Field harus diisi"),
     nomor_dokumen: Yup.string().required("Field harus diisi"),
     tgl_dokumen: Yup.string().required("Field harus diisi"),
@@ -23,7 +23,7 @@ export const kuitansiCreateValidation = (isEdit = false) => {
     is_perjadin: Yup.boolean().required("Field harus diisi"),
     total_tarif: Yup.number().required("Field harus diisi"),
     total_perjadin: Yup.number(),
-    jasa_fisik: Yup.array().min(1)
+    // jasa_fisik: Yup.array().min(1)
     // jasa_fisik: Yup.array()
     //   .of(
     //     Yup.object({

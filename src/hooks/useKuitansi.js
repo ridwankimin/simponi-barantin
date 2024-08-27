@@ -4,7 +4,7 @@ import { isEmpty } from "lodash";
 import useToaster from "./useToaster";
 
 export const useAddKuitansi = () => {
-  const toast = useToaster();
+  // const toast = useToaster();
   return useMutation({
     mutationKey: ["kuitansi"],
     mutationFn: async (json) =>
@@ -94,4 +94,42 @@ export const useGetKuitansiListByPtk = (id) => {
     enabled: !isEmpty(id),
     keepPreviousData: false,
   });
+};
+
+export const useUpdateNPWP = () => {
+  return useMutation({
+    mutationKey: ["npwpBendahara"],
+    mutationFn: (json) =>
+        api.post("/satker/npwpUpdate", json)
+        .then((response) => {
+          console.log('response')
+          console.log(response)
+          return response.data
+        })
+        .catch((err) => {
+          console.log('err')
+          console.log(err)
+          return (err.response?.data || "Gagal update NPWP")
+        })
+  });
+};
+
+export const useGetNPWP = (upt) => {
+  return useQuery({
+    queryKey: ["getNpwpBendahara", upt],
+    queryFn: () => api.get(`/satker?upt=${upt}`).then((res) => res.data).catch((err) => console.log(err)),
+    enabled: !!upt,
+    keepPreviousData: false,
+  });
+  // return useMutation({
+  //   mutationKey: ["getNpwpBendahara"],
+  //   mutationFn: (json) =>
+  //       api.get("/satker?upt=" + json)
+  //       .then((response) => {
+  //         return response.data
+  //       })
+  //       .catch((err) => {
+  //         return (err.response?.data || "Data NPWP kosong")
+  //       })
+  // });
 };

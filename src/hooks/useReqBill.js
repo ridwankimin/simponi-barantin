@@ -58,7 +58,7 @@ export const useCekBilling = () => {
 export const useGetBillList = ({ params }) => {
   return useQuery({
     queryKey: ["reqbill-status", Object.values(params)],
-    queryFn: () =>
+    queryFn: async () =>
       api.post("/reqbill/status", params).then((res) => res.data).catch((err) => console.log(err)),
     enabled: !isEmpty(params),
     keepPreviousData: false,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import userAvatar from "../assets/img/img1.jpg";
@@ -8,13 +8,23 @@ import { dashboardMenu } from "../data/Menu";
 import { useGetUser } from "../hooks/useAuth";
 import UptGrup from "../assets/json/uptNewGrouping.json"
 import toast from "react-hot-toast";
+import SettingNPWP from "../pages/SettingNPWP";
+import useDisclosure from "../hooks/useDisclosure";
+import { useGetNPWP } from "../hooks/useKuitansi";
 
 const Header = (args, { onSkin }) => {
+  const { onClose, onOpen, isOpen } = useDisclosure();
+  // const { mutateAsync } = useGetNPWP()
+  // let [dataUpt, setDataUpt] = useState("")
   function getUptDetil(e) {
     let retur = UptGrup.filter(item => item.id == e)
     return retur[0]
   }
   const user = useGetUser();
+  const { data: dataUpt } = useGetNPWP(user?.upt?.toString()?.slice(0, 2))
+  // const { data: { dataUpt } = {} } = response ?? {};
+  // const { data: { dataUpt = {} } = {} } = response ?? {};
+  // setDataUpt(mutateAsync(user?.upt?.toString()?.slice(0,2)))
   // eslint-disable-next-line react/display-name
   const CustomToggle = React.forwardRef(function ({ children, onClick }, ref) {
     return (
@@ -194,6 +204,8 @@ const Header = (args, { onSkin }) => {
               <hr />
               <p className="fs-sm text-secondary">{getUptDetil(user?.upt)?.nama?.replace("Balai Karantina Hewan, Ikan, dan Tumbuhan", "BKHIT")?.replace("Balai Besar Karantina Hewan, Ikan, dan Tumbuhan", "BBKHIT") ?? "-"}</p>
 
+              <hr />
+              <button type="button" onClick={() => onOpen()} className="btn btn-default">NPWP Bendahara</button>
               <nav className="nav"></nav>
               <hr />
               <nav className="nav">
@@ -206,6 +218,11 @@ const Header = (args, { onSkin }) => {
           </Dropdown.Menu>
         </Dropdown>
       </div>
+      <SettingNPWP
+        show={isOpen}
+        handleClose={onClose}
+        dataUpt={dataUpt}
+      />
     </div>
   );
 };

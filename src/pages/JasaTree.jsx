@@ -98,7 +98,7 @@ const JasaTree = ({
             setValue("satuan_volume", node[0]?.data?.satuan);
             setValue("uraian", node[0]?.data?.name);
             setValue("tarif", node[0]?.data?.jml_tarif);
-            setValue("total_tarif", node[0]?.data?.jml_tarif * volume * frekuensi);
+            setValue("total_tarif", parseFloat(node[0]?.data?.jml_tarif) * parseFloat(volume) * parseFloat(frekuensi));
           }
         }}
         searchTerm={permohonan}

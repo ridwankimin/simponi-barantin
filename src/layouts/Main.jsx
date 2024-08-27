@@ -8,6 +8,7 @@ import { isEmpty } from "lodash";
 import { Container } from "react-bootstrap";
 import { useGetUser } from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import moment from 'moment-timezone';
 
 export default function Main() {
   const offsets = ["/apps/file-manager", "/apps/email", "/apps/calendar"];
@@ -64,7 +65,8 @@ export default function Main() {
 
   const user = useGetUser()
 
-  const now = (new Date()).toLocaleString('en-CA', { hourCycle: 'h24' }).replace(',', '').slice(0, 16)
+  let now = moment.tz('Asia/Jakarta').format('YYYY-MM-DD HH:mm')
+  // const now = (new Date()).toLocaleString('en-CA', { hourCycle: 'h24' }).replace(',', '').slice(0, 16)
   // const now = "2024-07-24 18:59"
 
   //2024-07-24T16:20:04+0700

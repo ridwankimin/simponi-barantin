@@ -15,9 +15,9 @@ export const useLogin = () => {
         axios
           .post(import.meta.env.VITE_BASE_BE_BARANTIN + "/login", json)
           .then((response) => {
-            if(isEmpty(Cookies.get('satpel'))) {
+            // if(isEmpty(Cookies.get('satpel'))) {
               Cookies.set('satpel', response?.data?.data?.upt)
-            }
+            // }
             localStorage.setItem("barantinToken", response?.data?.data?.accessToken);
             // localStorage.setItem("cred", btoa(JSON.stringify(json)));
             // localStorage.setItem("user", JSON.stringify(response?.data?.data));

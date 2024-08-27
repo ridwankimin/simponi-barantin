@@ -26,6 +26,7 @@ const KuitansiCreateModalFisik = ({
     value: item?.id,
     label: item?.nama_komoditas,
     volume_lain: item?.volume_lain,
+    data: item,
   }));
 
   const fisikValidation = () => {
@@ -72,7 +73,39 @@ const KuitansiCreateModalFisik = ({
       kode_akun: "",
     },
   });
-  const [volume, tarif] = watch(["volume", "total_tarif"]);
+  let [volume, tarif] = watch(["volume", "total_tarif"]);
+
+  const konversiTarif = (satTarif, satPtk, volume) => {
+    let volbalikan
+    if (satTarif == 'per ton') {
+      if (satPtk == 1356) {
+        volbalikan = parseFloat(volume) / 1000
+      } else if (satPtk == 1008) {
+        volbalikan = parseFloat(volume) / 1000000
+      } else {
+        volbalikan = parseFloat(volume)
+      }
+    } else if (satTarif == 'per kilogram') {
+      if (satPtk == '2046') {
+        volbalikan = parseFloat(volume) * 1000
+      } else if (satPtk == '1008') {
+        volbalikan = parseFloat(volume) / 1000
+      } else {
+        volbalikan = parseFloat(volume)
+      }
+    } else if (satTarif == 'per gram') {
+      if (satPtk == '2046') {
+        volbalikan = parseFloat(volume) * 1000000
+      } else if (satPtk == '1356') {
+        volbalikan = parseFloat(volume) * 1000
+      } else {
+        volbalikan = parseFloat(volume)
+      }
+    } else {
+      volbalikan = volume
+    }
+    return parseFloat(volbalikan)
+  }
 
   const onSubmit = (values) => {
     append(values);
@@ -112,8 +145,10 @@ const KuitansiCreateModalFisik = ({
                           onChange(e.value);
                           setSelectedPtk(e);
                           setValueFisik("ptk_komoditas_id", e.value);
-                          setValueFisik("volume", e.volume_lain);
-                          setValueFisik("total_tarif", jenisKarantina == "I" ? tarif : e.volume_lain * tarif);
+                          setValueFisik("volume", konversiTarif((watch('satuan_volume') || ""), e.satuan_lain_id, e.volume_lain));
+                          setValueFisik("volumePtk", e.volume_lain);
+                          setValueFisik("satuanPtk", e.data.sat_lain);
+                          setValueFisik("total_tarif", jenisKarantina == "I" ? tarif : parseFloat(e.volume_lain) * parseFloat(tarif));
                         }
                       }}
                       value={selectedPtk}
@@ -134,9 +169,38 @@ const KuitansiCreateModalFisik = ({
                   className="border rounded p-2"
                   setValue={setValueFisik}
                   volume={volume}
+                  konversiTarif={konversiTarif}
+                  selectedPtk={selectedPtk}
                 />
+                {console.log('tarif')}
+                {console.log(watch('tarif'))}
+                {console.log('volume')}
+                {console.log(watch('volume'))}
+                {console.log('total_tarif')}
+                {console.log(watch('total_tarif'))}
               </InputWrapper>
             </Col>
+            <Col sm={12} md={12} className="mb-1 row">
+              <Col sm={3} md={3}>
+                <Label>Volume PTK Online</Label>
+                <input
+                  disabled
+                  readOnly
+                  className="form-control"
+                  {...register("volumePtk")}
+                />
+              </Col>
+              <Col sm={3} md={3}>
+                <Label>Satuan PTK Online</Label>
+                <input
+                  disabled
+                  readOnly
+                  className="form-control"
+                  {...register("satuanPtk")}
+                />
+              </Col>
+            </Col>
+            <hr />
             <Col sm={12} md={3} className="mb-1">
               <Label>Kode Tarif (id)</Label>
               <input
@@ -162,7 +226,6 @@ const KuitansiCreateModalFisik = ({
               <Label>Volume</Label>
               <input
                 className="form-control"
-                disabled
                 {...register("volume")}
               />
             </Col>
@@ -172,6 +235,7 @@ const KuitansiCreateModalFisik = ({
             <Col sm={12} md={3} className="d-none">
               <input className="form-control" {...register("uraian")} />
             </Col>
+            <small className="text-danger">*Konversi volume hanya berdasarkan satuan TON, Kilogram, dan Gram</small>
           </Row>
         </Modal.Body>
         <Modal.Footer>

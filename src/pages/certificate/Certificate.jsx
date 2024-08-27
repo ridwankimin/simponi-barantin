@@ -21,6 +21,7 @@ import DataTable from "react-data-table-component";
 import Loader from "../../components/Loader";
 import { isEmpty } from "lodash";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const Certificate = () => {
   //state
@@ -29,11 +30,12 @@ const Certificate = () => {
   const [endDate, setEndDate] = useState(
     currentDate.toISOString().split("T")[0]
   );
-  currentDate.setMonth(currentDate.getMonth() - 1);
+  currentDate.setDate(currentDate.getDate() - 7);
+  // currentDate.set(currentDate.getMonth() - 1);
   const [startDate, setStartDate] = useState(
     currentDate.toISOString().split("T")[0]
   );
-  const [filteredListData, setFilteredListData] = useState([]);
+  
   const [selectedMenu, setSelectedMenu] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [popOverState, setPopOverState] = useState(false);
@@ -50,6 +52,8 @@ const Certificate = () => {
       setSelectedMenu(menu);
     }
   };
+  console.log(Cookies.get('satpel'))
+  let[textFilter, setTextFilter] = useState("")
 
   //params api ptk
   const params = {
@@ -60,7 +64,7 @@ const Certificate = () => {
     jenis_karantina: selectedMenu,
     jenis_dokumen: "PTK",
     upt_id: user?.upt || "",
-    kode_satpel: "",
+    kode_satpel: Cookies.get('satpel') || "",
     pengguna_jasa_id: "",
   };
 
@@ -79,6 +83,8 @@ const Certificate = () => {
   const { data: { data: kuitansiList = [] } = [] } = detailKuitansi ?? {};
 
   const { data: listData = [] } = response ?? {};
+  // let [filteredListData, setFilteredListData] = useState(listData);
+  // setFilteredListData(listData)
   const navigate = useNavigate();
 
   const token = localStorage.getItem("barantinToken");
@@ -306,24 +312,30 @@ const Certificate = () => {
     },
   ];
 
-  const filterData = (text) => {
-    if (text != "") {
-      text = text?.toLowerCase()?.replace("dikuasakan", "ppjk")
-      const balikan = listData.filter(
-        item =>
-          (item.no_aju && item.no_aju.toLowerCase().includes(text.toLowerCase())) |
-          (item.stat_pemohon && item.stat_pemohon.toLowerCase().includes(text.toLowerCase())) |
-          (item.jenis_karantina && item.jenis_karantina.toLowerCase().includes(text.toLowerCase())) |
-          (item.no_dok_permohonan && item.no_dok_permohonan.toLowerCase().includes(text.toLowerCase())) |
-          (item.tgl_dok_permohonan && item.tgl_dok_permohonan.toLowerCase().includes(text.toLowerCase())) |
-          (item.status_bayar && item.status_bayar.toLowerCase().includes(text.toLowerCase())) |
-          (item.nama_penerima && item.nama_penerima.toLowerCase().includes(text.toLowerCase())) |
-          (item.nama_pemohon && item.nama_pemohon.toLowerCase().includes(text.toLowerCase())) |
-          (item.nama_pengirim && item.nama_pengirim.toLowerCase().includes(text.toLowerCase()))
-      );
-      setFilteredListData(balikan)
+  const filterData = () => {
+    if (textFilter != "") {
+      textFilter = textFilter?.toLowerCase()?.replace("dikuasakan", "ppjk")
+      if (listData?.length > 0) {
+        const balikan = listData.filter(
+          item =>
+            (item.no_aju && item.no_aju.toLowerCase().includes(textFilter.toLowerCase())) |
+            (item.stat_pemohon && item.stat_pemohon.toLowerCase().includes(textFilter.toLowerCase())) |
+            (item.jenis_karantina && item.jenis_karantina.toLowerCase().includes(textFilter.toLowerCase())) |
+            (item.no_dok_permohonan && item.no_dok_permohonan.toLowerCase().includes(textFilter.toLowerCase())) |
+            (item.tgl_dok_permohonan && item.tgl_dok_permohonan.toLowerCase().includes(textFilter.toLowerCase())) |
+            (item.status_bayar && item.status_bayar.toLowerCase().includes(textFilter.toLowerCase())) |
+            (item.nama_penerima && item.nama_penerima.toLowerCase().includes(textFilter.toLowerCase())) |
+            (item.nama_pemohon && item.nama_pemohon.toLowerCase().includes(textFilter.toLowerCase())) |
+            (item.nama_pengirim && item.nama_pengirim.toLowerCase().includes(textFilter.toLowerCase()))
+        );
+        return balikan
+      } else {
+        return listData
+      }
+      // setFilteredListData(balikan)
     } else {
-      setFilteredListData([])
+      return listData
+      // setFilteredListData(listData)
     }
   }
 
@@ -345,7 +357,7 @@ const Certificate = () => {
           type="text"
           id="searchListData"
           placeholder="Search..."
-          onChange={e => filterData(e.target.value)}
+          onChange={e => setTextFilter(e.target.value)}
         />
         {/* <input
           id="search"
@@ -359,6 +371,55 @@ const Certificate = () => {
       </div>
     );
   }, []);
+
+  // const conditionalRowStyles = {
+  //   header: {
+  //     style: {
+  //       minHeight: '56px',
+  //     },
+  //   }, 
+  //   headRow: {
+  //     style: {
+  //       borderTopStyle: 'solid',
+  //       borderTopWidth: '1px',
+  //       borderRightColor: 'grey',
+  //       // borderTopColor: defaultThemes.default.divider.default,
+  //     },
+  //   },
+  //   headCells: {
+  //     style: {
+  //       '&:not(:last-of-type)': {
+  //         borderRightStyle: 'solid',
+  //         borderRightWidth: '1px',
+  //         borderRightColor: 'grey',
+  //         // borderRightColor: defaultThemes.default.divider.default,
+  //       },
+  //     },
+  //   },
+  //   cells: {
+  //     style: {
+  //       '&:not(:last-of-type)': {
+  //         borderRightStyle: 'solid',
+  //         borderRightWidth: '1px',
+  //         borderRightColor: 'grey',
+  //       },
+  //     },
+  //   },
+  // }
+  const conditionalRowStyles =
+    [{
+      // when: row => row.calories < 300,
+    when: row => row.no_aju == selectedCertificate?.no_aju,
+      style: {
+        backgroundColor: '#6e9edd',
+        color: 'white',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    }]
+
+  // ];
 
   useEffect(() => {
     if (isEmpty(token)) {
@@ -510,9 +571,10 @@ const Certificate = () => {
                   onOpen();
                 }}
                 columns={columns}
-                data={filteredListData.length > 0 ? filteredListData : listData}
+                data={filterData()}
                 dense
                 highlightOnHover
+                conditionalRowStyles={conditionalRowStyles}
                 // paginationServer
                 // paginationTotalRows={listData?.length}
                 // paginationPerPage={countPerPage}

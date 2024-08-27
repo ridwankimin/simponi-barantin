@@ -13,9 +13,11 @@ const LaporPNBPModal = ({ isOpen, onClose, data, setDataBilling }) => {
       id: dataid,
       // kode_upt: "10",
       user: user?.uid,
+      jenis: 'bendahara',
       kode_upt: data[0]?.upt_id?.slice(0, 2),
       jenis_karantina: data[0]?.jenis_karantina
     }
+    console.log(JSON.stringify(dataJson))
     // console.log(dataJson)
     const toastId = toast.loading('Loading...');
     const response = await mutateAsync(dataJson);

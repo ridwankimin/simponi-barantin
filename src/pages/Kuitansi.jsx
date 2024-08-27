@@ -29,7 +29,7 @@ const Kuitansi = () => {
 
   const [page, setPage] = useState(1);
   let [filterText, setFilterText] = useState("");
-  let [filteredListData, setFilteredListData] = useState([]);
+  // let [filteredListData, setFilteredListData] = useState([]);
   // const navigate = useNavigate();
   const params = {
     dFrom: startDate,
@@ -146,25 +146,31 @@ const Kuitansi = () => {
     },
   ];
 
-  const filterData = (text) => {
-    setFilterText(text)
-    if (text != "") {
-      const balikin = listData.filter(
-        item =>
-          (item.idtrx_bill && item.idtrx_bill.toLowerCase().includes(text.toLowerCase())) |
-          (item.kode_bill && item.kode_bill.toLowerCase().includes(text.toLowerCase())) |
-          (item.date_bill && item.date_bill.toLowerCase().includes(text.toLowerCase())) |
-          (item.exp_bill && item.exp_bill.toLowerCase().includes(text.toLowerCase())) |
-          (item.total_pnbp && item.total_pnbp.toLowerCase().includes(text.toLowerCase())) |
-          (item.nama_wajib_bayar && item.nama_wajib_bayar.toLowerCase().includes(text.toLowerCase())) |
-          (item.date_setor && item.date_setor.toLowerCase().includes(text.toLowerCase())) |
-          (item.chnl_bayar && item.chnl_bayar.toLowerCase().includes(text.toLowerCase())) |
-          (item.status_bill && item.status_bill.toLowerCase().includes(text.toLowerCase())) |
-          (item.ntpn && item.ntpn.toLowerCase().includes(text.toLowerCase()))
-      );
-      setFilteredListData(balikin)
+  const filterData = () => {
+    // setFilterText(text)
+    if (filterText != "") {
+      if (listData?.length > 0) {
+        const balikin = listData.filter(
+          item =>
+            (item.idtrx_bill && item.idtrx_bill.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.kode_bill && item.kode_bill.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.date_bill && item.date_bill.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.exp_bill && item.exp_bill.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.total_pnbp && item.total_pnbp.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.nama_wajib_bayar && item.nama_wajib_bayar.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.date_setor && item.date_setor.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.chnl_bayar && item.chnl_bayar.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.status_bill && item.status_bill.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.ntpn && item.ntpn.toLowerCase().includes(filterText.toLowerCase()))
+        );
+        return balikin
+      } else {
+        return listData
+      }
+      // setFilteredListData(balikin)
     } else {
-      setFilteredListData([])
+      return listData
+      // setFilteredListData([])
     }
   }
 
@@ -176,7 +182,7 @@ const Kuitansi = () => {
           size="sm"
           id="searchListData"
           placeholder="Search..."
-          onChange={e => filterData(e.target.value)}
+          onChange={e => setFilterText(e.target.value)}
         />
       </div>
     );
@@ -244,23 +250,28 @@ const Kuitansi = () => {
             <Card.Header className="d-flex justify-content-between">
               <Card.Title as="h6"><button type="button" disabled={isPending} className="btn btn-dark me-4 mb-0" onClick={() => cekBillingAction()}><i className="ri-search-line me-2"></i>{isPending ? "Loading.." : "Cek Semua"}</button></Card.Title>
               <div className="d-flex" style={{ columnGap: "2px" }}>
-                <ReactDatePicker
+                <input
+                type="date"
                   className="form-control"
-                  selected={startDate}
-                  closeOnScroll={true}
+                  value={startDate}
+                  // selected={startDate}
+                  // closeOnScroll={true}
                   // isClearable
                   placeholderText="Dari Tanggal"
-                  onChange={(e) => setStartDate(e)}
+                  onChange={(e) => setStartDate(e.target.value)}
                 />
-                <ReactDatePicker
+                <b className="align-content-center m-2">s/d</b>
+                <input
+                type="date"
                   className="form-control"
-                  selected={finishDate}
-                  closeOnScroll={true}
+                  value={finishDate}
+                  // selected={finishDate}
+                  // closeOnScroll={true}
                   // isClearable
                   placeholderText="Sampai Tanggal"
-                  onChange={(e) => setFinishDate(e)}
+                  onChange={(e) => setFinishDate(e.target.value)}
                 />
-                <select className="form-select form-select-sm w-30" name="jenisKarantina" id="jenisKarantina" onChange={(e) => handleSelectMenu(e.target.value)}>
+                <select className="form-select form-select-sm w-80" name="jenisKarantina" id="jenisKarantina" onChange={(e) => handleSelectMenu(e.target.value)}>
                   <option value="" selected={selectedMenu == "" ? true : false}>--Semua--</option>
                   <option value="H" selected={selectedMenu == "H" ? true : false}>Hewan</option>
                   <option value="I" selected={selectedMenu == "I" ? true : false}>Ikan</option>
@@ -306,7 +317,7 @@ const Kuitansi = () => {
                 // title="--"
                 // selectableRows
                 columns={columns}
-                data={filteredListData.length > 0 || filterText != "" ? filteredListData : listData}
+                data={filterData()}
                 highlightOnHover
                 pagination
                 dense

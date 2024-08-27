@@ -17,7 +17,7 @@ const PermohonanBilling = () => {
   let [selectedRow, setSelectedRow] = useState(false);
   let [dataBilling, setDataBilling] = useState(false);
   let [filterText, setFilterText] = useState("");
-  let [filteredListData, setFilteredListData] = useState([]);
+  // let [filteredListData, setFilteredListData] = useState([]);
   const { mutateAsync: deleteKuitansi } = useDeleteKuitansi();
   const handleSelectMenu = (menu) => {
     setSelectedMenu(menu);
@@ -120,24 +120,29 @@ const PermohonanBilling = () => {
       ),
     },
   ];
-  console.log(listData)
-  const filterData = (text) => {
-    setFilterText(text)
-    if (text != "") {
-      const balikin = listData.filter(
-        item =>
-          (item.nomor && item.nomor.toLowerCase().includes(text.toLowerCase())) |
-          (item.tipe_bayar && item.tipe_bayar.toLowerCase().includes(text.toLowerCase())) |
-          (item.nomor_seri && item.nomor_seri.toLowerCase().includes(text.toLowerCase())) |
-          (item.tanggal && item.tanggal.toLowerCase().includes(text.toLowerCase())) |
-          (item.total_pnbp && item.total_pnbp.toLowerCase().includes(text.toLowerCase())) |
-          (item.identitas_id && item.identitas_id.toLowerCase().includes(text.toLowerCase())) |
-          (item.status_bill && item.status_bill.toLowerCase().includes(text.toLowerCase())) |
-          (item.nama_wajib_bayar && item.nama_wajib_bayar.toLowerCase().includes(text.toLowerCase()))
-      );
-      setFilteredListData(balikin)
+  const filterData = () => {
+    // setFilterText(text)
+    if (filterText != "") {
+      if (listData?.length > 0) {
+        const balikin = listData.filter(
+          item =>
+            (item.nomor && item.nomor.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.tipe_bayar && item.tipe_bayar.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.nomor_seri && item.nomor_seri.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.tanggal && item.tanggal.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.total_pnbp && item.total_pnbp.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.identitas_id && item.identitas_id.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.status_bill && item.status_bill.toLowerCase().includes(filterText.toLowerCase())) |
+            (item.nama_wajib_bayar && item.nama_wajib_bayar.toLowerCase().includes(filterText.toLowerCase()))
+        );
+        return balikin
+      } else {
+        return listData
+      }
+      // setFilteredListData(balikin)
     } else {
-      setFilteredListData([])
+      return listData
+      // setFilteredListData([])
     }
   }
 
@@ -149,7 +154,7 @@ const PermohonanBilling = () => {
           size="sm"
           id="searchListData"
           placeholder="Search..."
-          onChange={e => filterData(e.target.value)}
+          onChange={e => setFilterText(e.target.value)}
         />
       </div>
     );
@@ -177,21 +182,24 @@ const PermohonanBilling = () => {
           <Card className="card-one">
             <Card.Header className="d-flex justify-content-between">
               <div className="d-flex" style={{ columnGap: "2px" }}>
-                <ReactDatePicker
+                <input
+                type="date"
                   className="form-control"
-                  selected={startDate}
-                  closeOnScroll={true}
-                  // isClearable
-                  placeholderText="Dari Tanggal"
-                  onChange={(e) => setStartDate(e)}
+                  value={startDate}
+                  // closeOnScroll={true}
+                  // // isClearable
+                  // placeholderText="Dari Tanggal"
+                  onChange={(e) => setStartDate(e.target.value)}
                 />
-                <ReactDatePicker
+                <b className="align-content-center m-2">s/d</b>
+                <input
+                type="date"
                   className="form-control"
-                  selected={finishDate}
-                  closeOnScroll={true}
-                  // isClearable
-                  placeholderText="Sampai Tanggal"
-                  onChange={(e) => setFinishDate(e)}
+                  value={finishDate}
+                  // closeOnScroll={true}
+                  // // isClearable
+                  // placeholderText="Sampai Tanggal"
+                  onChange={(e) => setFinishDate(e.target.value)}
                 />
                 {/* <Button
                   color="primary"
@@ -217,7 +225,7 @@ const PermohonanBilling = () => {
                 >
                   Ikan
                 </Button> */}
-                <Form.Select className="form-control form-control-sm w-30" name="jenisKarantina" id="jenisKarantina" onChange={(e) => handleSelectMenu(e.target.value)}>
+                <Form.Select className="form-control form-control-sm w-100" name="jenisKarantina" id="jenisKarantina" onChange={(e) => handleSelectMenu(e.target.value)}>
                   <option value="" selected={selectedMenu == "" ? true : false}>--Semua--</option>
                   <option value="H" selected={selectedMenu == "H" ? true : false}>Hewan</option>
                   <option value="I" selected={selectedMenu == "I" ? true : false}>Ikan</option>
@@ -234,12 +242,12 @@ const PermohonanBilling = () => {
                         <tr className="text-black-50 p-0">
                           <td>Kode Billing</td>
                           <td>:</td>
-                          <td><b className="me-3">{dataBilling?.data[1] || ""}</b></td>
+                          <td><b className="me-3">{dataBilling?.kode_bill || ""}</b> <Button href={import.meta.env.VITE_BASE_BE_PRINT + "/payment/billing/" + dataBilling?.id} target="_blank" variant="dark" size="sm"><i className="ri-printer-line text-white me-2"></i>Cetak Billing</Button></td>
                         </tr>
                         <tr className="text-black-50 p-0">
                           <td>Tanggal Billing / Expired</td>
                           <td>:</td>
-                          <td><b>{(dataBilling?.data[2] || "") + " / " + (dataBilling?.data[3] || "")}</b></td>
+                          <td><b>{(dataBilling?.date_bill || "") + " / " + (dataBilling?.exp_bill || "")}</b></td>
                         </tr>
                       </tbody>
                     </Table>
@@ -256,7 +264,7 @@ const PermohonanBilling = () => {
                 }
                 dense
                 columns={columns}
-                data={filteredListData.length > 0 || filterText != "" ? filteredListData : listData}
+                data={filterData()}
                 highlightOnHover
                 pagination
                 subHeader
